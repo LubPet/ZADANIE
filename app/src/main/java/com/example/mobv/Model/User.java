@@ -5,6 +5,34 @@ public class User {
     private  String id;
     private  String username;
     private  String imageURL;
+    private  Integer uid;
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
+
+    public void setAccess(String access) {
+        this.access = access;
+    }
+
+    public void setRefresh(String refresh) {
+        this.refresh = refresh;
+    }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public String getAccess() {
+        return access;
+    }
+
+    public String getRefresh() {
+        return refresh;
+    }
+
+    private  String access;
+    private  String refresh;
 
     public User(String id, String username, String imageURL) {
         this.id = id;

@@ -1,8 +1,9 @@
 package com.example.mobv.api
 
 import android.content.Context
-import com.example.mobv.api.RoomListRequest
-import com.example.mobv.api.UserLoginRequest
+import com.example.mobv.api.requests.RefreshTokenRequest
+import com.example.mobv.api.requests.RoomListRequest
+import com.example.mobv.api.requests.UserLoginRequest
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.Response
