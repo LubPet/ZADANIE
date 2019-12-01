@@ -24,7 +24,7 @@
             android:textSize="22dp"
             android:textStyle="bold" />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/username"
@@ -32,7 +32,7 @@
             app:met_floatingLabel="normal"
             android:hint="Meno" />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/password"
