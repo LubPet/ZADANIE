@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.mobv.Fragments.ChatsFragment;
+import com.example.mobv.Fragments.RoomFragment;
 import com.example.mobv.Fragments.UsersFragment;
 import com.example.mobv.Model.User;
 import com.google.android.material.tabs.TabLayout;
@@ -80,8 +81,10 @@ public class MainActivity extends AppCompatActivity {
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
+        viewPagerAdapter.addFragment(new RoomFragment(), "Roomka");
+        viewPagerAdapter.addFragment(new UsersFragment(), "Kontakty");
         viewPagerAdapter.addFragment(new ChatsFragment(), "Konverzácie");
-        viewPagerAdapter.addFragment(new UsersFragment(), "Používatelia?");
+
 
         viewPager.setAdapter(viewPagerAdapter);
 
