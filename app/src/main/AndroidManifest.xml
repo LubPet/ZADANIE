@@ -16,6 +16,8 @@
         android:theme="@style/AppTheme"
         android:networkSecurityConfig="@xml/config"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".MessageActivity"></activity>
+        <activity android:name=".Main2Activity" />
         <activity
             android:name=".LoginActivity"
             android:parentActivityName=".StartActivity" />
