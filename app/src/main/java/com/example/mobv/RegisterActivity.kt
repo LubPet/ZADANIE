@@ -2,7 +2,6 @@ package com.example.mobv
 
 import android.content.Intent
 import android.os.Bundle
-import android.telecom.Call
 import android.text.TextUtils
 import android.view.View
 import android.widget.Button
@@ -10,24 +9,21 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.google.android.gms.common.api.Response
+import com.example.mobv.Model.FirebaseDAO
+import com.example.mobv.Model.RegisterModel
+import com.example.mobv.Model.LoggedUser
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.DataOutputStream
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URI
-import java.net.URL
-import java.nio.charset.StandardCharsets
-import java.util.*
+import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class RegisterActivity : AppCompatActivity() {
 
-    val auth = FirebaseAuth.getInstance()
-
+    private val firebaseDAO = FirebaseDAO()
+    private val registerModel = RegisterModel() // TODO put into ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,57 +32,70 @@ class RegisterActivity : AppCompatActivity() {
         val username = findViewById<EditText>(R.id.usernameReg)
         val email = findViewById<EditText>(R.id.email)
         val password = findViewById<EditText>(R.id.passwordReg)
-        val btn_register = findViewById<Button>(R.id.btn_register)
+        val btnRegister = findViewById<Button>(R.id.btn_register)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setTitle("Registrácia")
+        supportActionBar!!.title = "Registrácia"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        btn_register.setOnClickListener(View.OnClickListener {
-            val txt_username = username.getText().toString()
-            val txt_email = email.getText().toString()
-            val txt_password = password.getText().toString()
-            if (TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(
-                    txt_password
-                )
-            ) {
+        btnRegister.setOnClickListener(View.OnClickListener {
+            val txtUsername = username.text.toString()
+            val txtEmail = email.text.toString()
+            val txtPassword = password.text.toString()
+            if (TextUtils.isEmpty(txtUsername) || TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)) {
                 Toast.makeText(
                     this@RegisterActivity,
                     "Nie všetky položky boli správne vyplnené.",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                register(txt_username, txt_email, txt_password)
+                register(txtUsername, txtEmail, txtPassword)
             }
         })
     }
 
+    // TODO put into ViewModel
     private fun register(username: String, email: String, password: String) {
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val firebaseUser = auth.currentUser!!
-                    val userId = firebaseUser.uid
-                    val reference = FirebaseDatabase.getInstance().getReference("Users").child(userId)
-                    val hashMap: MutableMap<String, String> = HashMap()
-                    hashMap["id"] = userId
-                    hashMap["username"] = username
-                    hashMap["imageURL"] = "default"
-                    reference.setValue(hashMap).addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                Toast.makeText(this@RegisterActivity, "Registrácia bola úspešná.", Toast.LENGTH_LONG).show()
-                                val intent = Intent(this@RegisterActivity, MainActivity::class.java)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                                startActivity(intent)
-                                finish()
-                            } else {
-                                Toast.makeText(this@RegisterActivity, "Registrácia bola neúspešná.", Toast.LENGTH_LONG).show()
-                            }
-                        }
-                } else {
-                    Toast.makeText(this@RegisterActivity, "Registrácia bola neúspešná.", Toast.LENGTH_LONG).show()
+        val job = Job()
+        val coroutineScope = CoroutineScope(
+            job + Dispatchers.Main
+        )
+
+        var user : LoggedUser
+        coroutineScope.launch {
+            try {
+                user = registerModel.register(this@RegisterActivity, username, email, password)
+                firebaseDAO.createUser(username, email, password) { firebaseUser ->
+                    if (firebaseUser != null) {
+                        onRegisterSuccess(user)
+                    } else {
+                        onRegisterFailure()
+                    }
                 }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                onRegisterFailure()
             }
+        }
     }
 
+    private fun onRegisterSuccess(loggedUser: LoggedUser) {
+        Toast.makeText(this@RegisterActivity, "Registrácia bola úspešná.", Toast.LENGTH_LONG).show()
+        val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun onRegisterFailure() {
+        Toast.makeText(
+            this@RegisterActivity,
+            "Registrácia bola neúspešná.",
+            Toast.LENGTH_LONG
+        ).show()
+    }
 }
+
+
