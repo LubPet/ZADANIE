@@ -10,10 +10,8 @@ class LoginModel : UserAccessModel() {
         val zadanieApi = ZadanieApi.create(ctx)
 
         val userLoginRequest = UserLoginRequest(username, password)
-        val user = convert(username, zadanieApi.userLogin(userLoginRequest))
 
-        createSession(user)
-        return user
+        return convert(username, zadanieApi.userLogin(userLoginRequest))
     }
 
 }

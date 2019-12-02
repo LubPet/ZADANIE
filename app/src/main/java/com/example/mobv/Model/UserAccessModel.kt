@@ -12,8 +12,4 @@ abstract class UserAccessModel {
         return user
     }
 
-    fun createSession(loggedUser: LoggedUser) {
-        // TODO store tokens
-    }
-
 }

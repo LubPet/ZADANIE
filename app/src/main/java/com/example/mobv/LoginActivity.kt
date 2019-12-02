@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import com.example.mobv.Model.FirebaseDAO
 import com.example.mobv.Model.LoginModel
 import com.example.mobv.Model.LoggedUser
+import com.example.mobv.session.SessionManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -58,6 +59,7 @@ class LoginActivity : AppCompatActivity() {
                 loginUser = loginModel.login(this@LoginActivity, txtUsername, txtPassword)
                 firebaseDAO.loginUser(txtUsername, txtPassword) { firebaseUser ->
                     if (firebaseUser != null) {
+                        loginUser.fid = firebaseUser.uid
                         onLoginSuccess(loginUser)
                     } else {
                         onLoginFailure()
@@ -70,7 +72,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun onLoginSuccess(body: LoggedUser) {
+    private fun onLoginSuccess(loggedUser: LoggedUser) {
+        SessionManager.get(this@LoginActivity).saveSessionData(loggedUser)
+
         val intent = Intent(this@LoginActivity, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
 

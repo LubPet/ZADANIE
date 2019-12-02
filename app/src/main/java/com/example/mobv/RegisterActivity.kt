@@ -12,8 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import com.example.mobv.Model.FirebaseDAO
 import com.example.mobv.Model.RegisterModel
 import com.example.mobv.Model.LoggedUser
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import com.example.mobv.session.SessionManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -68,6 +67,7 @@ class RegisterActivity : AppCompatActivity() {
                 user = registerModel.register(this@RegisterActivity, username, email, password)
                 firebaseDAO.createUser(username, email, password) { firebaseUser ->
                     if (firebaseUser != null) {
+                        user.fid = firebaseUser.uid
                         onRegisterSuccess(user)
                     } else {
                         onRegisterFailure()
@@ -82,6 +82,8 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun onRegisterSuccess(loggedUser: LoggedUser) {
+        SessionManager.get(this@RegisterActivity).saveSessionData(loggedUser)
+
         Toast.makeText(this@RegisterActivity, "Registrácia bola úspešná.", Toast.LENGTH_LONG).show()
         val intent = Intent(this@RegisterActivity, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)

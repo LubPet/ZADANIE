@@ -1,17 +1,23 @@
 package com.example.mobv.api
 
 import android.content.Context
+import com.example.mobv.Model.LoggedUser
 import com.example.mobv.api.requests.RefreshTokenRequest
+import com.example.mobv.api.responses.RefreshTokenResponse
+import com.example.mobv.session.SessionManager
+import com.google.gson.Gson
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
 import okhttp3.Authenticator
+import kotlin.math.log
 
 class TokenAuthenticator(val context: Context) : Authenticator {
 
     override fun authenticate(route: Route?, response: Response): Request? {
-        val userAccessToken = "" // TODO
-        val userId = "" // TODO
+        val loggedUser = SessionManager.get(context).getSessionData()
+        var userAccessToken = loggedUser!!.access
+        val userId = loggedUser.uid
 
         if (response.request.header("OpinAuth")?.compareTo("accept") == 0 && response.code == 401) {
 
@@ -19,15 +25,20 @@ class TokenAuthenticator(val context: Context) : Authenticator {
                 return null
             }
 
-            val refreshToken = "" // TODO
+            val refreshToken = loggedUser.refresh!!
 
             val tokenResponse = ZadanieApi.create(context)
                 .tokenRefreshCall(RefreshTokenRequest(userId, refreshToken)).execute()
 
             if (tokenResponse.isSuccessful) {
-//                userAccessToken = tokenResponse.body!!.accessToken
-//                uloz(tokenResponse.body()!!.accessToken) // store new access token
-//                uloz(tokenResponse.body()!!.refreshToken) // store new refresh token
+                val refreshResponse = Gson().fromJson(tokenResponse.body.toString(), RefreshTokenResponse::class.java)
+                userAccessToken = refreshResponse.access
+
+                loggedUser.access = userAccessToken
+                loggedUser.refresh = refreshResponse.refresh
+                loggedUser.uid = refreshResponse.uid
+
+                SessionManager.get(context).saveSessionData(loggedUser)
 
                 return response.request.newBuilder()
                     .header("Authorization", "Bearer $userAccessToken")

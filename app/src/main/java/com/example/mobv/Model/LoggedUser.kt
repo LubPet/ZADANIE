@@ -4,6 +4,8 @@ class LoggedUser {
 
     var uid: String
 
+    var fid: String = ""
+
     var username: String
 
     var access: String? = null
@@ -14,6 +16,7 @@ class LoggedUser {
 
     constructor(uid: String, username: String) {
         this.uid = uid
+        this.fid = fid
         this.username = username
     }
 

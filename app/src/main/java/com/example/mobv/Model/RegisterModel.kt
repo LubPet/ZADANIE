@@ -4,7 +4,6 @@ import android.content.Context
 import com.example.mobv.api.ZadanieApi
 import com.example.mobv.api.requests.UserCreateRequest
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 
 class RegisterModel : UserAccessModel() {
 
@@ -15,10 +14,8 @@ class RegisterModel : UserAccessModel() {
         val zadanieApi = ZadanieApi.create(ctx)
 
         val userCreateRequest = UserCreateRequest(username, password)
-        val user = convert(username, zadanieApi.createUser(userCreateRequest))
 
-        createSession(user)
-        return user
+        return convert(username, zadanieApi.createUser(userCreateRequest))
     }
 
 }
