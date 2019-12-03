@@ -11,6 +11,7 @@ import com.example.mobv.Model.FirebaseDAO
 import com.example.mobv.Model.LoginModel
 import com.example.mobv.Model.LoggedUser
 import com.example.mobv.session.SessionManager
+import com.example.mobv.utils.Coroutines
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -31,40 +32,34 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar!!.setDefaultDisplayHomeAsUpEnabled(true)
 
         val btnLogin = findViewById<Button>(R.id.btn_login)
-        val username = findViewById<EditText>(R.id.username)
+        val email = findViewById<EditText>(R.id.email)
         val password = findViewById<EditText>(R.id.password)
 
         btnLogin.setOnClickListener {
-            val txtUsername = username.text.toString()
+            val txtEmail = email.text.toString()
             val txtPassword = password.text.toString()
-            if (txtUsername.isNullOrEmpty() || txtPassword.isNullOrEmpty()) {
+            if (txtEmail.isNullOrEmpty() || txtPassword.isNullOrEmpty()) {
                 Toast.makeText(this@LoginActivity, "Zadajte meno aj heslo.", Toast.LENGTH_SHORT)
                     .show()
             } else {
-                login(txtUsername, txtPassword)
+                login(txtEmail, txtPassword)
             }
         }
     }
 
     // TODO put into ViewModel
-    private fun login(txtUsername: String, txtPassword: String) {
-        val viewModelJob = Job()
-        val coroutineScope = CoroutineScope(
-            viewModelJob + Dispatchers.Main
-        )
-
+    private fun login(email: String, txtPassword: String) {
         var loginUser: LoggedUser
-        coroutineScope.launch {
+
+        Coroutines.create().launch {
             try {
-                loginUser = loginModel.login(this@LoginActivity, txtUsername, txtPassword)
-                firebaseDAO.loginUser(txtUsername, txtPassword) { firebaseUser ->
-                    if (firebaseUser != null) {
-                        loginUser.fid = firebaseUser.uid
-                        onLoginSuccess(loginUser)
-                    } else {
-                        onLoginFailure()
-                    }
-                }
+                loginUser = loginModel.login(this@LoginActivity, email, txtPassword)
+                firebaseDAO.loginUser(email, txtPassword, { firebaseUser ->
+                    loginUser.fid = firebaseUser!!.uid
+                    onLoginSuccess(loginUser)
+                }, {
+                    onLoginFailure()
+                })
             } catch (e: Exception) {
                 e.printStackTrace()
                 onLoginFailure()

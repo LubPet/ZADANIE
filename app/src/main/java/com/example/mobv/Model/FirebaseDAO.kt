@@ -8,7 +8,7 @@ class FirebaseDAO {
 
     private val auth = FirebaseAuth.getInstance()
 
-    fun createUser(username: String, email: String, password: String, callback: (FirebaseUser?) -> Unit) {
+    fun createUser(username: String, email: String, password: String, onSuccess: (FirebaseUser?) -> Unit, onFailure: (String?) -> Unit) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val firebaseUser = auth.currentUser!!
@@ -20,27 +20,34 @@ class FirebaseDAO {
                 hashMap["imageURL"] = "default"
                 reference.setValue(hashMap).addOnCompleteListener { task ->
                     if (!task.isSuccessful) {
-                        callback(null)
+                        task.exception?.printStackTrace()
+                        onFailure(task.exception?.message)
 
                     } else {
-                        callback(firebaseUser)
+                        onSuccess(firebaseUser)
                     }
                 }
 
             } else {
-                callback(null)
+                task.exception?.printStackTrace()
+                onFailure(task.exception?.message)
             }
         }
     }
 
-    fun loginUser(username: String, password: String, callback: (FirebaseUser?) -> Unit) {
-        auth.signInWithEmailAndPassword(username, password)
+    fun loginUser(email: String, password: String, onSuccess: (FirebaseUser?) -> Unit, onFailure: (String?) -> Unit) {
+        auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    callback(auth.currentUser!!)
+                    onSuccess(auth.currentUser!!)
                 } else {
-                    callback(null)
+                    task.exception?.printStackTrace()
+                    onFailure(task.exception?.message)
                 }
             }
+    }
+
+    fun logoutUser() {
+        auth.signOut()
     }
 }

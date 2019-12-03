@@ -13,6 +13,7 @@ import com.example.mobv.Model.FirebaseDAO
 import com.example.mobv.Model.RegisterModel
 import com.example.mobv.Model.LoggedUser
 import com.example.mobv.session.SessionManager
+import com.example.mobv.utils.Coroutines
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -56,23 +57,23 @@ class RegisterActivity : AppCompatActivity() {
 
     // TODO put into ViewModel
     private fun register(username: String, email: String, password: String) {
-        val job = Job()
-        val coroutineScope = CoroutineScope(
-            job + Dispatchers.Main
-        )
-
         var user : LoggedUser
-        coroutineScope.launch {
+        Coroutines.create().launch {
             try {
-                user = registerModel.register(this@RegisterActivity, username, email, password)
-                firebaseDAO.createUser(username, email, password) { firebaseUser ->
-                    if (firebaseUser != null) {
-                        user.fid = firebaseUser.uid
+                user = registerModel.register(this@RegisterActivity, email, password)
+                firebaseDAO.createUser(username, email, password, { firebaseUser ->
+                    user.fid = firebaseUser!!.uid
+
+                    SessionManager.get(this@RegisterActivity).saveSessionData(user)
+
+                    Coroutines.create().launch {
+                        registerModel.setFID(this@RegisterActivity, user.uid, user.fid)
                         onRegisterSuccess(user)
-                    } else {
-                        onRegisterFailure()
                     }
-                }
+
+                }, {
+                    onRegisterFailure()
+                })
 
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -82,8 +83,6 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun onRegisterSuccess(loggedUser: LoggedUser) {
-        SessionManager.get(this@RegisterActivity).saveSessionData(loggedUser)
-
         Toast.makeText(this@RegisterActivity, "Registrácia bola úspešná.", Toast.LENGTH_LONG).show()
         val intent = Intent(this@RegisterActivity, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)

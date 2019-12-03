@@ -5,9 +5,9 @@ import okhttp3.ResponseBody
 
 abstract class UserAccessModel {
 
-    fun convert(username: String, body: ResponseBody): LoggedUser {
+    fun convert(email: String, body: ResponseBody): LoggedUser {
         val user = Gson().fromJson(body.string(), LoggedUser::class.java)
-        user.username = username
+        user.email = email
 
         return user
     }

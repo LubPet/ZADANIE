@@ -20,6 +20,10 @@ interface ZadanieApi {
     @POST("user/create.php")
     suspend fun createUser(@Body body: UserCreateRequest): ResponseBody
 
+    @POST("user/fid.php")
+    @Headers("ZadanieApiAuth: accept")
+    suspend fun setFID(@Body body: SetFidRequest): ResponseBody
+
     @POST("room/list.php")
     @Headers("ZadanieApiAuth: accept")
     suspend fun roomList(@Body body: RoomListRequest): ResponseBody

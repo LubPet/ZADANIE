@@ -18,6 +18,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.mobv.Fragments.ChatsFragment;
 import com.example.mobv.Fragments.RoomFragment;
 import com.example.mobv.Fragments.UsersFragment;
+import com.example.mobv.Model.FirebaseDAO;
+import com.example.mobv.Model.LoginModel;
 import com.example.mobv.Model.User;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseUser firebaseUser;
     DatabaseReference reference;
+
+    FirebaseDAO firebaseDAO = new FirebaseDAO();
+    LoginModel loginModel = new LoginModel();
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -103,7 +108,8 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
 
             case  R.id.logout:
-                FirebaseAuth.getInstance().signOut();
+                firebaseDAO.logoutUser();
+                loginModel.logout(MainActivity.this);
                 startActivity(new Intent(MainActivity.this, StartActivity.class));
                 finish();
                 return true;
