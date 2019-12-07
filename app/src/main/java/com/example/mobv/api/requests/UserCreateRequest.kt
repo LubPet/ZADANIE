@@ -1,6 +1,6 @@
 package com.example.mobv.api.requests
 
-class UserLoginRequest(private val name: String, private val password: String) : ZadanieRequest() {
+class UserCreateRequest(private val name: String, private val password: String) : ZadanieRequest() {
 
     fun getName(): String {
         return this.name
@@ -11,7 +11,7 @@ class UserLoginRequest(private val name: String, private val password: String) :
     }
 
     override fun toString(): String {
-        return "UserLoginResponse(name='$name', password='$password')"
+        return "UserCreateRequest(name='$name', password='$password')"
     }
 
 }

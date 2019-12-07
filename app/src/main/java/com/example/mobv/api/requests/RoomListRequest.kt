@@ -1,5 +1,5 @@
 package com.example.mobv.api.requests
 
-class RoomListRequest {
+class RoomListRequest(private val uid: String) : ZadanieRequest() {
 
 }

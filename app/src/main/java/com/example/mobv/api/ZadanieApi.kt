@@ -1,12 +1,10 @@
 package com.example.mobv.api
 
 import android.content.Context
-import com.example.mobv.api.requests.RefreshTokenRequest
-import com.example.mobv.api.requests.RoomListRequest
-import com.example.mobv.api.requests.UserLoginRequest
+import com.example.mobv.api.requests.*
 import okhttp3.Call
 import okhttp3.OkHttpClient
-import okhttp3.Response
+import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
@@ -14,20 +12,28 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 
-interface ZadanieApi{
+interface ZadanieApi {
 
-    @POST("http://zadanie.mpage.sk/user/login.php")
-    suspend fun userLogin(@Body body: UserLoginRequest): Response
+    @POST("user/login.php")
+    suspend fun userLogin(@Body body: UserLoginRequest): ResponseBody
 
-    @POST("http://zadanie.mpage.sk/room/list.php")
+    @POST("user/create.php")
+    suspend fun createUser(@Body body: UserCreateRequest): ResponseBody
+
+    @POST("user/fid.php")
     @Headers("ZadanieApiAuth: accept")
-    suspend fun roomList(@Body body: RoomListRequest): Response
+    suspend fun setFID(@Body body: SetFidRequest): ResponseBody
 
-    @POST("http://zadanie.mpage.sk/user/refresh.php")
+    @POST("room/list.php")
+    @Headers("ZadanieApiAuth: accept")
+    suspend fun roomList(@Body body: RoomListRequest): ResponseBody
+
+    @POST("user/refresh.php")
     fun tokenRefreshCall(@Body body: RefreshTokenRequest): Call
 
-
     companion object {
+
+        private const val BASE_URL = "http://zadanie.mpage.sk/"
 
         fun create(context: Context): ZadanieApi {
 
@@ -37,7 +43,7 @@ interface ZadanieApi{
                 .build()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://zadanie.mpage.sk/user/")
+                .baseUrl(BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
