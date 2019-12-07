@@ -3,14 +3,18 @@ package com.example.mobv.Model
 import android.content.Context
 import com.example.mobv.api.ZadanieApi
 import com.example.mobv.api.requests.ListContactRequest
+import com.example.mobv.api.requests.ReadContactRequest
+import com.example.mobv.api.requests.ReadRoomRequest
 import com.example.mobv.api.requests.RoomListRequest
 import com.example.mobv.api.responses.Contact
+import com.example.mobv.api.responses.ContactMessage
+import com.example.mobv.api.responses.RoomMessage
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Exception
 
-class MessagingRepository: IMessagingRepository {
+open class MessagingRepository: IMessagingRepository {
 
     override fun getContacts(ctx: Context, uid: String, onSuccess: (List<Contact>) -> Unit, onFailure: (Throwable) -> Unit) {
         val call: Call<List<Contact>> = ZadanieApi.create(ctx).listContacts(ListContactRequest(uid))
@@ -18,8 +22,20 @@ class MessagingRepository: IMessagingRepository {
         fetch(call, onSuccess, onFailure)
     }
 
+    override fun readContact(ctx: Context, uid: String, contact: String, onSuccess: (List<ContactMessage>) -> Unit, onFailure: (Throwable) -> Unit) {
+        val call: Call<List<ContactMessage>> = ZadanieApi.create(ctx).readContact(ReadContactRequest(uid, contact))
+
+        fetch(call, onSuccess, onFailure)
+    }
+
     override fun getRooms(ctx: Context, uid: String, onSuccess: (List<Room>) -> Unit, onFailure: (Throwable) -> Unit) {
         val call: Call<List<Room>> = ZadanieApi.create(ctx).listRooms(RoomListRequest(uid))
+
+        fetch(call, onSuccess, onFailure)
+    }
+
+    override fun readRoom(ctx: Context, uid: String, room: String, onSuccess: (List<RoomMessage>) -> Unit, onFailure: (Throwable) -> Unit) {
+        val call: Call<List<RoomMessage>> = ZadanieApi.create(ctx).readRoom(ReadRoomRequest(uid, room))
 
         fetch(call, onSuccess, onFailure)
     }

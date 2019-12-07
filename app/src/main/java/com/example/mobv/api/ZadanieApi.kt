@@ -51,7 +51,7 @@ interface ZadanieApi {
 
     @POST("contact/read.php")
     @Headers("ZadanieApiAuth: accept")
-    suspend fun readContact(@Body body: ReadContactRequest): Call<List<ContactMessage>>
+    fun readContact(@Body body: ReadContactRequest): Call<List<ContactMessage>>
 
     @POST("user/refresh.php")
     fun tokenRefreshCall(@Body body: RefreshTokenRequest): Call<LoggedUser>
