@@ -53,6 +53,7 @@ class LoginActivity : AppCompatActivity() {
                 loginUser = userRepository.login(this@LoginActivity, username, txtPassword)
                 firebaseIdRepository.getId(loginUser, { id ->
                     loginUser.fid = id
+                    loginUser.username = username
                     onLoginSuccess(loginUser)
                 }, {
                     onLoginFailure()

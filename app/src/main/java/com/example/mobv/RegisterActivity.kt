@@ -58,7 +58,7 @@ class RegisterActivity : AppCompatActivity() {
                 user = userRepository.register(this@RegisterActivity, username, password)
                 firebaseIdRepository.getId(user, { id ->
                     user.fid = id
-
+                    user.username = username
                     SessionManager.get(this@RegisterActivity).saveSessionData(user)
 
                     Coroutines.create().launch {

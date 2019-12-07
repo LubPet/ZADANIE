@@ -35,7 +35,7 @@ interface ZadanieApi {
 
     @POST("room/message.php")
     @Headers("ZadanieApiAuth: accept")
-    fun messageRoom(@Body body: MessageRoomRequest): Call<Any>
+    fun messageRoom(@Body body: MessageRoomRequest): Call<Void>
 
     @POST("room/read.php")
     @Headers("ZadanieApiAuth: accept")
@@ -47,7 +47,7 @@ interface ZadanieApi {
 
     @POST("contact/message.php")
     @Headers("ZadanieApiAuth: accept")
-    fun messageContact(@Body body: MessageContactRequest): Call<Any>
+    fun messageContact(@Body body: MessageContactRequest): Call<Void>
 
     @POST("contact/read.php")
     @Headers("ZadanieApiAuth: accept")

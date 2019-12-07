@@ -7,6 +7,7 @@ import com.example.mobv.Model.Room
 import com.example.mobv.api.responses.Contact
 import com.example.mobv.api.responses.ContactMessage
 import com.example.mobv.api.responses.RoomMessage
+import com.example.mobv.session.SessionManager
 
 class FakeMessagingRepository: MessagingRepository() {
 
@@ -29,10 +30,12 @@ class FakeMessagingRepository: MessagingRepository() {
     }
 
     override fun readContact(ctx: Context, uid: String, contact: String, onSuccess: (List<ContactMessage>) -> Unit, onFailure: (Throwable) -> Unit) {
+        val loggedUser = SessionManager.get(ctx).getSessionData()!!
+
         val messages = ArrayList<ContactMessage>()
-        messages.add(ContactMessage("uid", "message", "2019-12-01 12:00:00", "Libor", "Maros", "0000", "0001"))
-        messages.add(ContactMessage("uid", "message", "2019-12-01 12:05:00", "Libor", "Maros", "0000", "0001"))
-        messages.add(ContactMessage("uid", "message", "2019-12-01 12:06:00", "Libor", "Maros", "0000", "0001"))
+        messages.add(ContactMessage(loggedUser.uid, "message", "2019-12-01 12:00:00", "Libor", "Maros", "0000", "0001"))
+        messages.add(ContactMessage("20", "message", "2019-12-01 12:05:00", "Maros", "Libor", "0001", "0000"))
+        messages.add(ContactMessage(loggedUser.uid, "message", "2019-12-01 12:06:00", "Libor", "Maros", "0000", "0001"))
 
         onSuccess(messages)
     }

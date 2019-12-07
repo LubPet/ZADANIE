@@ -26,7 +26,7 @@ open class MessagingRepository: IMessagingRepository {
     }
 
     override fun messageContact(ctx: Context, uid: String, contact: String, message: String, onSuccess: (Any) -> Unit, onFailure: (Throwable) -> Unit) {
-        val call: Call<Any> = ZadanieApi.create(ctx).messageContact(MessageContactRequest(uid, contact, message))
+        val call: Call<Void> = ZadanieApi.create(ctx).messageContact(MessageContactRequest(uid, contact, message))
 
         fetch(call, onSuccess, onFailure)
     }
@@ -44,7 +44,7 @@ open class MessagingRepository: IMessagingRepository {
     }
 
     override fun messageRoom(ctx: Context, uid: String, room: String, message: String, onSuccess: (Any) -> Unit, onFailure: (Throwable) -> Unit) {
-        val call: Call<Any> = ZadanieApi.create(ctx).messageRoom(MessageRoomRequest(uid, room, message))
+        val call: Call<Void> = ZadanieApi.create(ctx).messageRoom(MessageRoomRequest(uid, room, message))
 
         fetch(call, onSuccess, onFailure)
     }
