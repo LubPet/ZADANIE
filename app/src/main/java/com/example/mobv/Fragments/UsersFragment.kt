@@ -43,12 +43,15 @@ class UsersFragment : Fragment() {
     private fun readUsers() {
         val uid = SessionManager.get(context!!).getSessionData()!!.uid
 
-        Coroutines.create().launch {
-            val contacts = messagingRepository.getContacts(context!!, uid)
+        messagingRepository.getContacts(context!!, uid, { contacts ->
 
             userAdapter = UserAdapter(context!!, contacts)
             recyclerView!!.adapter = userAdapter
-        }
+
+        }, {
+            it.printStackTrace()
+            throw it
+        })
 
     }
 }

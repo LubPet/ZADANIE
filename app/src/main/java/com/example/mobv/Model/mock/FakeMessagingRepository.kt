@@ -6,13 +6,13 @@ import com.example.mobv.api.responses.Contact
 
 class FakeMessagingRepository: IMessagingRepository {
 
-    override suspend fun getContacts(ctx: Context, uid: String): List<Contact> {
+    override fun getContacts(ctx: Context, uid: String, onSuccess: (List<Contact>) -> Unit, onFailure: (Throwable) -> Unit) {
         val contacts = ArrayList<Contact>()
         contacts.add(Contact("Prvy", "1"))
         contacts.add(Contact("Druhy", "2"))
         contacts.add(Contact("Treti", "3"))
 
-        return contacts
+        onSuccess(contacts)
     }
 
 
