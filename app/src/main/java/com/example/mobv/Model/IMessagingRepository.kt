@@ -36,4 +36,22 @@ interface IMessagingRepository {
         onSuccess: (List<RoomMessage>) -> Unit,
         onFailure: (Throwable) -> Unit
     )
+
+    fun messageRoom(
+        ctx: Context,
+        uid: String,
+        room: String,
+        message: String,
+        onSuccess: (Any) -> Unit,
+        onFailure: (Throwable) -> Unit
+    )
+
+    fun messageContact(
+        ctx: Context,
+        uid: String,
+        contact: String,
+        message: String,
+        onSuccess: (Any) -> Unit,
+        onFailure: (Throwable) -> Unit
+    )
 }
