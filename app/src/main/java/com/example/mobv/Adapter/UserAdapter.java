@@ -14,16 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mobv.MessageActivity;
 import com.example.mobv.Model.User;
 import com.example.mobv.R;
+import com.example.mobv.api.responses.Contact;
 
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private Context mContext;
-    private List<User> mUsers;
+    private List<Contact> contacts;
 
-    public UserAdapter(Context mContext, List<User> mUsers) {
-        this.mUsers = mUsers;
+    public UserAdapter(Context mContext, List<Contact> mUsers) {
+        this.contacts = mUsers;
         this.mContext = mContext;
     }
 
@@ -38,14 +39,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        final User user = mUsers.get(position);
-        holder.username.setText(user.getUsername());
-        if (user.getImageURL().equals("default")){
-            holder.profile_image.setImageResource(R.mipmap.ic_launcher);
-        } else {
-            //rozne obrazky nepodporujeme
-            holder.profile_image.setImageResource(R.mipmap.ic_launcher);
-        }
+        final Contact user = contacts.get(position);
+        holder.username.setText(user.getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +55,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mUsers.size();
+        return contacts.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

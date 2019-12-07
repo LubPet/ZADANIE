@@ -2,11 +2,7 @@ package com.example.mobv.api
 
 import android.content.Context
 import com.example.mobv.Model.LoggedUser
-import com.example.mobv.Model.Room
 import com.example.mobv.api.requests.*
-import com.example.mobv.api.responses.Contact
-import com.example.mobv.api.responses.ContactMessage
-import com.example.mobv.api.responses.RoomMessage
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
@@ -31,7 +27,7 @@ interface ZadanieApi {
 
     @POST("room/list.php")
     @Headers("ZadanieApiAuth: accept")
-    suspend fun listRoom(@Body body: RoomListRequest): List<Room>
+    suspend fun listRoom(@Body body: RoomListRequest): ResponseBody
 
     @POST("room/message.php")
     @Headers("ZadanieApiAuth: accept")
@@ -39,11 +35,11 @@ interface ZadanieApi {
 
     @POST("room/read.php")
     @Headers("ZadanieApiAuth: accept")
-    suspend fun readRoom(@Body body: ReadRoomRequest): List<RoomMessage>
+    suspend fun readRoom(@Body body: ReadRoomRequest): ResponseBody
 
     @POST("contact/list.php")
     @Headers("ZadanieApiAuth: accept")
-    suspend fun listContact(@Body body: ListContactRequest): List<Contact>
+    suspend fun listContacts(@Body body: ListContactRequest): ResponseBody
 
     @POST("contact/message.php")
     @Headers("ZadanieApiAuth: accept")
@@ -51,7 +47,7 @@ interface ZadanieApi {
 
     @POST("contact/read.php")
     @Headers("ZadanieApiAuth: accept")
-    suspend fun readContact(@Body body: ReadContactRequest): List<ContactMessage>
+    suspend fun readContact(@Body body: ReadContactRequest): ResponseBody
 
     @POST("user/refresh.php")
     fun tokenRefreshCall(@Body body: RefreshTokenRequest): Call

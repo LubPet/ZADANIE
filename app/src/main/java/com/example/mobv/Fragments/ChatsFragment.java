@@ -48,10 +48,10 @@ public class ChatsFragment extends Fragment {
     }
 
     private void readChats(){
-        mUsers = new ArrayList<>();
-
-        userAdapter = new UserAdapter(getContext(), mUsers);
-        recyclerView.setAdapter(userAdapter);
+//        mUsers = new ArrayList<>();
+//
+//        userAdapter = new UserAdapter(getContext(), mUsers);
+//        recyclerView.setAdapter(userAdapter);
     }
 
 
