@@ -8,8 +8,6 @@ class LoggedUser {
 
     var username: String
 
-    var email: String = ""
-
     var access: String? = null
 
     var refresh: String? = null
@@ -26,7 +24,6 @@ class LoggedUser {
         this.username = username
         this.access = access
         this.refresh = refresh
-        this.email = email
     }
 
 }

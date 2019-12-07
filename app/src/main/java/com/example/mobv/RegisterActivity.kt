@@ -9,28 +9,24 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.example.mobv.Model.FirebaseDAO
-import com.example.mobv.Model.RegisterModel
+import com.example.mobv.Model.FirebaseIdRepository
 import com.example.mobv.Model.LoggedUser
+import com.example.mobv.Model.UserRepository
 import com.example.mobv.session.SessionManager
 import com.example.mobv.utils.Coroutines
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class RegisterActivity : AppCompatActivity() {
 
-    private val firebaseDAO = FirebaseDAO()
-    private val registerModel = RegisterModel() // TODO put into ViewModel
+    private val firebaseIdRepository = FirebaseIdRepository()
+    private val userRepository = UserRepository() // TODO put into ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
         val username = findViewById<EditText>(R.id.usernameReg)
-        val email = findViewById<EditText>(R.id.email)
         val password = findViewById<EditText>(R.id.passwordReg)
         val btnRegister = findViewById<Button>(R.id.btn_register)
 
@@ -39,35 +35,34 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar!!.title = "Registrácia"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        btnRegister.setOnClickListener(View.OnClickListener {
+        btnRegister.setOnClickListener {
             val txtUsername = username.text.toString()
-            val txtEmail = email.text.toString()
             val txtPassword = password.text.toString()
-            if (TextUtils.isEmpty(txtUsername) || TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)) {
+            if (TextUtils.isEmpty(txtUsername) || TextUtils.isEmpty(txtUsername) || TextUtils.isEmpty(txtPassword)) {
                 Toast.makeText(
                     this@RegisterActivity,
                     "Nie všetky položky boli správne vyplnené.",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                register(txtUsername, txtEmail, txtPassword)
+                register(txtUsername, txtPassword)
             }
-        })
+        }
     }
 
     // TODO put into ViewModel
-    private fun register(username: String, email: String, password: String) {
+    private fun register(username: String, password: String) {
         var user : LoggedUser
         Coroutines.create().launch {
             try {
-                user = registerModel.register(this@RegisterActivity, email, password)
-                firebaseDAO.createUser(username, email, password, { firebaseUser ->
-                    user.fid = firebaseUser!!.uid
+                user = userRepository.register(this@RegisterActivity, username, password)
+                firebaseIdRepository.getId(user, { id ->
+                    user.fid = id
 
                     SessionManager.get(this@RegisterActivity).saveSessionData(user)
 
                     Coroutines.create().launch {
-                        registerModel.setFID(this@RegisterActivity, user.uid, user.fid)
+                        userRepository.setFID(this@RegisterActivity, user.uid, user.fid)
                         onRegisterSuccess(user)
                     }
 

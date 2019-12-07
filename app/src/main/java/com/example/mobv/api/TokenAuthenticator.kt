@@ -19,7 +19,7 @@ class TokenAuthenticator(val context: Context) : Authenticator {
         var userAccessToken = loggedUser!!.access
         val userId = loggedUser.uid
 
-        if (response.code == 401) {
+        if (response.request.header("ZadanieApiAuth")?.compareTo("accept") == 0 && response.code == 401) {
 
             if (!response.request.header("Authorization").equals("Bearer $userAccessToken")) {
                 return null

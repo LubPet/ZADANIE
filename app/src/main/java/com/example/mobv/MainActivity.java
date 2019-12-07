@@ -18,8 +18,8 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.mobv.Fragments.ChatsFragment;
 import com.example.mobv.Fragments.RoomFragment;
 import com.example.mobv.Fragments.UsersFragment;
-import com.example.mobv.Model.FirebaseDAO;
-import com.example.mobv.Model.LoginModel;
+import com.example.mobv.Model.FirebaseIdRepository;
+import com.example.mobv.Model.UserRepository;
 import com.example.mobv.Model.User;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,11 +39,7 @@ public class MainActivity extends AppCompatActivity {
     CircleImageView profile_image;
     TextView username;
 
-    FirebaseUser firebaseUser;
-    DatabaseReference reference;
-
-    FirebaseDAO firebaseDAO = new FirebaseDAO();
-    LoginModel loginModel = new LoginModel();
+    UserRepository userRepository = new UserRepository();
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -57,29 +53,6 @@ public class MainActivity extends AppCompatActivity {
         profile_image = findViewById(R.id.profile_image);
         username = findViewById(R.id.usernameMain);
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                username.setText(user.getUsername());
-                if (user.getImageURL().equals("default")){
-                    profile_image.setImageResource(R.mipmap.ic_launcher);
-                } else {
-                    //vyjebal som sa na to, bude len default obrazok
-                    profile_image.setImageResource(R.mipmap.ic_launcher);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager viewPager = findViewById(R.id.view_pager);
 
@@ -89,12 +62,8 @@ public class MainActivity extends AppCompatActivity {
         viewPagerAdapter.addFragment(new UsersFragment(), "Kontakty");
         viewPagerAdapter.addFragment(new ChatsFragment(), "Konverzácie");
 
-
         viewPager.setAdapter(viewPagerAdapter);
-
         tabLayout.setupWithViewPager(viewPager);
-
-
     }
 
     @Override
@@ -108,8 +77,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
 
             case  R.id.logout:
-                firebaseDAO.logoutUser();
-                loginModel.logout(MainActivity.this);
+                userRepository.logout(MainActivity.this);
                 startActivity(new Intent(MainActivity.this, StartActivity.class));
                 finish();
                 return true;

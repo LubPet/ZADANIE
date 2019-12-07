@@ -7,21 +7,18 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.example.mobv.Model.FirebaseDAO
-import com.example.mobv.Model.LoginModel
+import com.example.mobv.Model.FirebaseIdRepository
+import com.example.mobv.Model.UserRepository
 import com.example.mobv.Model.LoggedUser
 import com.example.mobv.session.SessionManager
 import com.example.mobv.utils.Coroutines
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 @Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
 class LoginActivity : AppCompatActivity() {
 
-    private val firebaseDAO = FirebaseDAO()
-    private val loginModel = LoginModel()
+    private val firebaseIdRepository = FirebaseIdRepository()
+    private val userRepository = UserRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,30 +29,30 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar!!.setDefaultDisplayHomeAsUpEnabled(true)
 
         val btnLogin = findViewById<Button>(R.id.btn_login)
-        val email = findViewById<EditText>(R.id.email)
+        val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
 
         btnLogin.setOnClickListener {
-            val txtEmail = email.text.toString()
+            val txtUsername = username.text.toString()
             val txtPassword = password.text.toString()
-            if (txtEmail.isNullOrEmpty() || txtPassword.isNullOrEmpty()) {
+            if (txtUsername.isEmpty() || txtPassword.isEmpty()) {
                 Toast.makeText(this@LoginActivity, "Zadajte meno aj heslo.", Toast.LENGTH_SHORT)
                     .show()
             } else {
-                login(txtEmail, txtPassword)
+                login(txtUsername, txtPassword)
             }
         }
     }
 
     // TODO put into ViewModel
-    private fun login(email: String, txtPassword: String) {
+    private fun login(username: String, txtPassword: String) {
         var loginUser: LoggedUser
 
         Coroutines.create().launch {
             try {
-                loginUser = loginModel.login(this@LoginActivity, email, txtPassword)
-                firebaseDAO.loginUser(email, txtPassword, { firebaseUser ->
-                    loginUser.fid = firebaseUser!!.uid
+                loginUser = userRepository.login(this@LoginActivity, username, txtPassword)
+                firebaseIdRepository.getId(loginUser, { id ->
+                    loginUser.fid = id
                     onLoginSuccess(loginUser)
                 }, {
                     onLoginFailure()

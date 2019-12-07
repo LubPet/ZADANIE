@@ -1,7 +1,12 @@
 package com.example.mobv.Model
 
-import java.time.LocalDateTime
+import com.example.mobv.utils.DateUtils
+import java.util.*
 
-class Room(roomId: String, time: LocalDateTime) {
+class Room(val roomid: String, private val time: String) {
+
+    fun getTime(): Date {
+        return DateUtils.parseTime(time)!!
+    }
 
 }
