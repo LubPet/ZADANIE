@@ -31,7 +31,7 @@ interface ZadanieApi {
 
     @POST("room/list.php")
     @Headers("ZadanieApiAuth: accept")
-    fun listRoom(@Body body: RoomListRequest): Call<List<Room>>
+    fun listRooms(@Body body: RoomListRequest): Call<List<Room>>
 
     @POST("room/message.php")
     @Headers("ZadanieApiAuth: accept")

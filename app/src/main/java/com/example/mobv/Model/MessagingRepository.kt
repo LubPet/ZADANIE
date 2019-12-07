@@ -3,6 +3,7 @@ package com.example.mobv.Model
 import android.content.Context
 import com.example.mobv.api.ZadanieApi
 import com.example.mobv.api.requests.ListContactRequest
+import com.example.mobv.api.requests.RoomListRequest
 import com.example.mobv.api.responses.Contact
 import retrofit2.Call
 import retrofit2.Callback
@@ -13,6 +14,12 @@ class MessagingRepository: IMessagingRepository {
 
     override fun getContacts(ctx: Context, uid: String, onSuccess: (List<Contact>) -> Unit, onFailure: (Throwable) -> Unit) {
         val call: Call<List<Contact>> = ZadanieApi.create(ctx).listContacts(ListContactRequest(uid))
+
+        fetch(call, onSuccess, onFailure)
+    }
+
+    override fun getRooms(ctx: Context, uid: String, onSuccess: (List<Room>) -> Unit, onFailure: (Throwable) -> Unit) {
+        val call: Call<List<Room>> = ZadanieApi.create(ctx).listRooms(RoomListRequest(uid))
 
         fetch(call, onSuccess, onFailure)
     }
