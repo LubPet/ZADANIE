@@ -31,12 +31,8 @@ class TokenAuthenticator(val context: Context) : Authenticator {
                 .tokenRefreshCall(RefreshTokenRequest(userId, refreshToken)).execute()
 
             if (tokenResponse.isSuccessful) {
-                val refreshResponse = Gson().fromJson(tokenResponse.body.toString(), RefreshTokenResponse::class.java)
+                val refreshResponse = tokenResponse.body()!!
                 userAccessToken = refreshResponse.access
-
-                loggedUser.access = userAccessToken
-                loggedUser.refresh = refreshResponse.refresh
-                loggedUser.uid = refreshResponse.uid
 
                 SessionManager.get(context).saveSessionData(loggedUser)
 

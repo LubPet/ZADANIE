@@ -54,7 +54,7 @@ interface ZadanieApi {
     suspend fun readContact(@Body body: ReadContactRequest): Call<List<ContactMessage>>
 
     @POST("user/refresh.php")
-    fun tokenRefreshCall(@Body body: RefreshTokenRequest): okhttp3.Call
+    fun tokenRefreshCall(@Body body: RefreshTokenRequest): Call<LoggedUser>
 
     companion object {
 
