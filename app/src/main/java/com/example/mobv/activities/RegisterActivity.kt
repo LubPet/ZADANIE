@@ -1,4 +1,4 @@
-package com.example.mobv
+package com.example.mobv.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,15 +9,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.ViewModelProviders
-import com.example.mobv.Model.FirebaseDAO
-import com.example.mobv.Model.RegisterModel
-import com.example.mobv.Model.LoggedUser
+import com.example.mobv.model.FirebaseDAO
+import com.example.mobv.model.RegisterModel
+import com.example.mobv.model.LoggedUser
+import com.example.mobv.R
 import com.example.mobv.session.SessionManager
 import com.example.mobv.utils.Coroutines
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
 

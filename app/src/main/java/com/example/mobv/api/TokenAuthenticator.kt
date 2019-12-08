@@ -1,7 +1,6 @@
 package com.example.mobv.api
 
 import android.content.Context
-import com.example.mobv.Model.LoggedUser
 import com.example.mobv.api.requests.RefreshTokenRequest
 import com.example.mobv.api.responses.RefreshTokenResponse
 import com.example.mobv.session.SessionManager
@@ -10,7 +9,6 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
 import okhttp3.Authenticator
-import kotlin.math.log
 
 class TokenAuthenticator(val context: Context) : Authenticator {
 

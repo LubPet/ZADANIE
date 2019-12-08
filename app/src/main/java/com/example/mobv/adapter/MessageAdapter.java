@@ -1,7 +1,6 @@
-package com.example.mobv.Adapter;
+package com.example.mobv.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mobv.MessageActivity;
-import com.example.mobv.Model.Chat;
-import com.example.mobv.Model.User;
+import com.example.mobv.model.Chat;
 import com.example.mobv.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

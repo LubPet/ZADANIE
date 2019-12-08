@@ -1,4 +1,4 @@
-package com.example.mobv.Model
+package com.example.mobv.model
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser

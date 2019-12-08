@@ -1,4 +1,4 @@
-package com.example.mobv.Model
+package com.example.mobv.model
 
 class LoggedUser {
 

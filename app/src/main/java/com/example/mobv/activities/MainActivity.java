@@ -1,4 +1,4 @@
-package com.example.mobv;
+package com.example.mobv.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,12 +15,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.mobv.Fragments.ChatsFragment;
-import com.example.mobv.Fragments.RoomFragment;
-import com.example.mobv.Fragments.UsersFragment;
-import com.example.mobv.Model.FirebaseDAO;
-import com.example.mobv.Model.LoginModel;
-import com.example.mobv.Model.User;
+import com.example.mobv.fragments.ChatsFragment;
+import com.example.mobv.fragments.RoomFragment;
+import com.example.mobv.fragments.UsersFragment;
+import com.example.mobv.model.FirebaseDAO;
+import com.example.mobv.model.LoginModel;
+import com.example.mobv.model.User;
+import com.example.mobv.R;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

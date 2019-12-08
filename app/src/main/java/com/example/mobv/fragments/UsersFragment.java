@@ -1,7 +1,5 @@
-package com.example.mobv.Fragments;
+package com.example.mobv.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,8 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mobv.Adapter.UserAdapter;
-import com.example.mobv.Model.User;
+import com.example.mobv.adapter.UserAdapter;
+import com.example.mobv.model.User;
 import com.example.mobv.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

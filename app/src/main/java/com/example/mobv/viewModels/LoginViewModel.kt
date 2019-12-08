@@ -1,22 +1,10 @@
-package com.example.mobv
+package com.example.mobv.viewModels
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.util.Log
-import android.view.View
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.ViewModel
-import com.example.mobv.Model.FirebaseDAO
-import com.example.mobv.Model.LoggedUser
-import com.example.mobv.Model.LoginModel
-import com.example.mobv.session.SessionManager
-import com.example.mobv.utils.Coroutines
-import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.coroutines.launch
+import com.example.mobv.model.LoggedUser
+import com.example.mobv.model.LoginModel
 
 
 class LoginViewModel(val context: Context) : ViewModel() {

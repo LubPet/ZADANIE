@@ -16,15 +16,15 @@
         tools:ignore="GoogleAppIndexingWarning"
         android:networkSecurityConfig="@xml/config">
 
-        <activity android:name=".MessageActivity" />
+        <activity android:name=".activities.MessageActivity" />
         <activity
-            android:name=".LoginActivity"
-            android:parentActivityName=".StartActivity" />
-        <activity android:name=".MainActivity" />
+            android:name=".activities.LoginActivity"
+            android:parentActivityName=".activities.StartActivity" />
+        <activity android:name=".activities.MainActivity" />
         <activity
-            android:name=".RegisterActivity"
-            android:parentActivityName=".StartActivity" />
-        <activity android:name=".StartActivity">
+            android:name=".activities.RegisterActivity"
+            android:parentActivityName=".activities.StartActivity" />
+        <activity android:name=".activities.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

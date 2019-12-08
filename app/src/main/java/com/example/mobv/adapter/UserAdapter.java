@@ -1,4 +1,4 @@
-package com.example.mobv.Adapter;
+package com.example.mobv.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mobv.MessageActivity;
-import com.example.mobv.Model.User;
+import com.example.mobv.activities.MessageActivity;
+import com.example.mobv.model.User;
 import com.example.mobv.R;
 
 import java.util.List;
