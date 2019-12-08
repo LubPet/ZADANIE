@@ -33,10 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class MainActivity : AppCompatActivity() {
 
-//    internal var profile_image: CircleImageView
-//    internal var username: TextView
-
-    internal var userRepository = UserRepository()
+    private var userRepository = UserRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,9 +42,6 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar!!.title = ""
-
-        var profile_image: CircleImageView = findViewById(R.id.profile_image)
-        var username: TextView = findViewById(R.id.usernameMain)
 
         val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
         val viewPager = findViewById<ViewPager>(R.id.view_pager)
@@ -83,13 +77,8 @@ class MainActivity : AppCompatActivity() {
 
     internal inner class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
-        private val fragments: ArrayList<Fragment>
-        private val titles: ArrayList<String>
-
-        init {
-            this.fragments = ArrayList()
-            this.titles = ArrayList()
-        }
+        private val fragments: ArrayList<Fragment> = ArrayList()
+        private val titles: ArrayList<String> = ArrayList()
 
         override fun getItem(position: Int): Fragment {
             return fragments[position]
