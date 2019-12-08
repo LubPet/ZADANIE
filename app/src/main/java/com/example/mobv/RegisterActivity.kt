@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProviders
 import com.example.mobv.Model.FirebaseDAO
 import com.example.mobv.Model.RegisterModel
 import com.example.mobv.Model.LoggedUser

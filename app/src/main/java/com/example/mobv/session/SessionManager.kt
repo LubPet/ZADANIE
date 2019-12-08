@@ -11,7 +11,7 @@ class SessionManager {
 
     private var ctx: Context? = null
 
-    constructor(ctx: Context) {
+    constructor(ctx: Context?) {
         this.ctx = ctx
     }
 
