@@ -1,10 +1,17 @@
 package com.example.mobv.viewModels
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import com.example.mobv.activities.MainActivity
+import com.example.mobv.model.FirebaseDAO
 import com.example.mobv.model.LoggedUser
 import com.example.mobv.model.LoginModel
+import com.example.mobv.session.SessionManager
+import com.example.mobv.utils.Coroutines
+import kotlinx.coroutines.launch
 
 
 class LoginViewModel(val context: Context) : ViewModel() {
@@ -17,6 +24,8 @@ class LoginViewModel(val context: Context) : ViewModel() {
     }*/
 
     private val loginModel = LoginModel()
+    private val firebaseDAO = FirebaseDAO()
+
 
     fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         Log.w("tag", "onTextChanged $s")
@@ -24,7 +33,7 @@ class LoginViewModel(val context: Context) : ViewModel() {
 
     fun login() {
         var loginUser: LoggedUser
-/*
+
         Coroutines.create().launch {
             try {
                 loginUser = loginModel.login(context, "doplnit mail", "doplnit password")
@@ -52,7 +61,7 @@ class LoginViewModel(val context: Context) : ViewModel() {
     }
 
     private fun onLoginFailure() {
-        Toast.makeText(context, "Nesprávne meno alebo heslo.", Toast.LENGTH_SHORT).show()*/
+        Toast.makeText(context, "Nesprávne meno alebo heslo.", Toast.LENGTH_SHORT).show()
     }
 
 }
