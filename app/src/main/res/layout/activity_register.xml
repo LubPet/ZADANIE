@@ -39,7 +39,6 @@
             android:inputType="textEmailAddress"
             android:layout_marginTop="10dp"
             app:met_floatingLabel="normal"
-            app:textChangedListener="@{viewModel.passwordTextWatcher}"
             android:hint="Email" />
 
         <EditText

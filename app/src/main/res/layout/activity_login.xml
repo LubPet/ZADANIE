@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="viewModel" type="com.example.mobv.AppViewModel" />
+        <variable name="loginViewModel" type="com.example.mobv.LoginViewModel" />
         <variable name="meno" type="String" />
         <variable name="heslo" type="String" />
     </data>
@@ -56,8 +56,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Prihlásiť sa"
+                android:onClick="@{() -> loginViewModel.login()}"
                 android:id="@+id/btn_login"
-                android:onClick="@{() -> viewModel.onButtonClick()}"
                 android:background="@color/colorPrimaryDark"
                 android:layout_marginTop="10dp"
                 android:padding="20dp"
