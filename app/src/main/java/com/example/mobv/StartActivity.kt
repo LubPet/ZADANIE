@@ -1,17 +1,11 @@
 package com.example.mobv;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
 
-import androidx.appcompat.app.AppCompatActivity;
-import com.example.mobv.Model.LoggedUser
-
-import com.example.mobv.session.SessionManager;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import kotlinx.android.synthetic.main.activity_start.*
+import androidx.appcompat.app.AppCompatActivity
+import com.example.mobv.session.SessionManager
 
 class StartActivity: AppCompatActivity() {
 
@@ -21,9 +15,12 @@ class StartActivity: AppCompatActivity() {
         val loggedUser = SessionManager.get(this@StartActivity).getSessionData()
 
         if (loggedUser != null) {
-            val intent = Intent(this@StartActivity, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+
+            if (!loggedUser.expired) {
+                val intent = Intent(this@StartActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 

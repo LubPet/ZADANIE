@@ -1,6 +1,7 @@
-package com.example.mobv.Model
+package com.example.mobv.Model.repository
 
 import android.content.Context
+import com.example.mobv.Model.Room
 import com.example.mobv.api.responses.Contact
 import com.example.mobv.api.responses.ContactMessage
 import com.example.mobv.api.responses.RoomMessage
@@ -42,7 +43,7 @@ interface IMessagingRepository {
         uid: String,
         room: String,
         message: String,
-        onSuccess: (Any) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (Throwable) -> Unit
     )
 
@@ -51,7 +52,7 @@ interface IMessagingRepository {
         uid: String,
         contact: String,
         message: String,
-        onSuccess: (Any) -> Unit,
+        onSuccess: () -> Unit,
         onFailure: (Throwable) -> Unit
     )
 }

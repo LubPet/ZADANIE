@@ -14,7 +14,6 @@ import com.example.mobv.Model.Chat;
 import com.example.mobv.Model.LoggedUser;
 import com.example.mobv.R;
 import com.example.mobv.session.SessionManager;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 

@@ -8,13 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobv.Adapter.UserAdapter
-import com.example.mobv.Model.MessagingRepository
 import com.example.mobv.Model.factory.MessagingRepositoryFactory
 import com.example.mobv.R
-import com.example.mobv.api.responses.Contact
 import com.example.mobv.session.SessionManager
-import com.example.mobv.utils.Coroutines
-import kotlinx.coroutines.launch
 
 class UsersFragment : Fragment() {
     private var recyclerView: RecyclerView? = null

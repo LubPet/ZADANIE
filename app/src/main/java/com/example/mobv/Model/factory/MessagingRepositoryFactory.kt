@@ -1,15 +1,14 @@
 package com.example.mobv.Model.factory
 
-import com.example.mobv.Model.IMessagingRepository
-import com.example.mobv.Model.MessagingRepository
-import com.example.mobv.Model.mock.FakeMessagingRepository
+import com.example.mobv.Model.repository.IMessagingRepository
+import com.example.mobv.Model.repository.MessagingRepository
 
 class MessagingRepositoryFactory {
 
     companion object {
 
         fun create(): IMessagingRepository {
-            return FakeMessagingRepository()
+            return MessagingRepository()
         }
 
     }

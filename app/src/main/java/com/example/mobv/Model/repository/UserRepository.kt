@@ -1,6 +1,7 @@
-package com.example.mobv.Model
+package com.example.mobv.Model.repository
 
 import android.content.Context
+import com.example.mobv.Model.LoggedUser
 import com.example.mobv.api.ZadanieApi
 import com.example.mobv.api.requests.SetFidRequest
 import com.example.mobv.api.requests.UserCreateRequest

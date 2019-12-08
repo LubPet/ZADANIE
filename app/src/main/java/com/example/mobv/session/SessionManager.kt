@@ -37,6 +37,12 @@ class SessionManager {
         editor.apply()
     }
 
+    fun setExpired(expired: Boolean) {
+        val loggedUser = getSessionData()
+        loggedUser!!.expired = expired
+        saveSessionData(loggedUser)
+    }
+
     private fun loadPrefs(): SharedPreferences {
         return ctx!!.getSharedPreferences("Session", MODE_PRIVATE)
     }

@@ -1,8 +1,7 @@
 package com.example.mobv.Model.mock
 
 import android.content.Context
-import com.example.mobv.Model.IMessagingRepository
-import com.example.mobv.Model.MessagingRepository
+import com.example.mobv.Model.repository.MessagingRepository
 import com.example.mobv.Model.Room
 import com.example.mobv.api.responses.Contact
 import com.example.mobv.api.responses.ContactMessage

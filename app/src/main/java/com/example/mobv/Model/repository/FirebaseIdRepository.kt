@@ -1,8 +1,7 @@
-package com.example.mobv.Model
+package com.example.mobv.Model.repository
 
+import com.example.mobv.Model.LoggedUser
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.FirebaseDatabase
 
 class FirebaseIdRepository {
 

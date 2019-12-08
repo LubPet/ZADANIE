@@ -3,15 +3,14 @@ package com.example.mobv
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.example.mobv.Model.FirebaseIdRepository
+import com.example.mobv.Model.repository.FirebaseIdRepository
 import com.example.mobv.Model.LoggedUser
-import com.example.mobv.Model.UserRepository
+import com.example.mobv.Model.repository.UserRepository
 import com.example.mobv.session.SessionManager
 import com.example.mobv.utils.Coroutines
 import kotlinx.coroutines.launch
@@ -19,8 +18,10 @@ import java.lang.Exception
 
 class RegisterActivity : AppCompatActivity() {
 
-    private val firebaseIdRepository = FirebaseIdRepository()
-    private val userRepository = UserRepository() // TODO put into ViewModel
+    private val firebaseIdRepository =
+        FirebaseIdRepository()
+    private val userRepository =
+        UserRepository() // TODO put into ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
