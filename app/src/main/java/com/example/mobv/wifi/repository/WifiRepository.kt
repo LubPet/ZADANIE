@@ -38,9 +38,19 @@ class WifiRepository(private val ctx: Context) {
          ctx.registerReceiver(wifiScanReceiver, intentFilter)
 
         val success = wifiManager.startScan()
-        println("KOKOT")
+        if (!success)
+            onFailure()
     }
 
+    fun getConnectionInfo(): List<Wifi> {
+        val wifiManager: WifiManager = ctx.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        val wifi = wifiManager.connectionInfo
+
+        val wifis = ArrayList<Wifi>()
+        wifis.add(Wifi(wifi.ssid.toString(), wifi.bssid.toString()))
+
+        return wifis
+    }
 
     companion object {
 
