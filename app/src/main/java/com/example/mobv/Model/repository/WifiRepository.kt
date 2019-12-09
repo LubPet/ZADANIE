@@ -1,11 +1,11 @@
-package com.example.mobv.wifi.repository
+package com.example.mobv.Model.repository
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.wifi.WifiManager
-import com.example.mobv.wifi.repository.domain.Wifi
+import com.example.mobv.Model.Wifi
 
 
 class WifiRepository(private val ctx: Context) {
@@ -47,7 +47,12 @@ class WifiRepository(private val ctx: Context) {
         val wifi = wifiManager.connectionInfo
 
         val wifis = ArrayList<Wifi>()
-        wifis.add(Wifi(wifi.ssid.toString(), wifi.bssid.toString()))
+        wifis.add(
+            Wifi(
+                wifi.ssid.toString(),
+                wifi.bssid.toString()
+            )
+        )
 
         return wifis
     }

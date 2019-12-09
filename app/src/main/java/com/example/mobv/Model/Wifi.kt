@@ -1,3 +1,3 @@
-package com.example.mobv.wifi.repository.domain
+package com.example.mobv.Model
 
 class Wifi(val SSID: String?, val BSSID: String?)

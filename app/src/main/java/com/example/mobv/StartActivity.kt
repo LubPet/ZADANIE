@@ -2,10 +2,9 @@ package com.example.mobv;
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.example.mobv.Model.repository.AvailableRoomsRepository
+import com.example.mobv.Model.giphy.repository.GiphyRepository
 import com.example.mobv.session.SessionManager
 
 class StartActivity: AppCompatActivity() {
@@ -23,6 +22,8 @@ class StartActivity: AppCompatActivity() {
                 finish()
             }
         }
+
+        test()
     }
 
     override fun onCreate(saveInstanceState: Bundle?) {
@@ -39,6 +40,14 @@ class StartActivity: AppCompatActivity() {
         register.setOnClickListener {view ->
             startActivity(Intent(this@StartActivity, RegisterActivity::class.java))
         }
+    }
+
+    fun test() {
+        GiphyRepository.create(this).search("lmao", 20, {
+            println(it)
+        }, {
+            it.printStackTrace()
+        })
     }
 
 }

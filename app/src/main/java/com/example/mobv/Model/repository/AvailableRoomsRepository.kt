@@ -2,7 +2,6 @@ package com.example.mobv.Model.repository
 
 import android.content.Context
 import com.example.mobv.Model.WifiRoom
-import com.example.mobv.wifi.repository.WifiRepository
 import java.util.*
 
 class AvailableRoomsRepository(private val ctx: Context, private val wifiRepository: WifiRepository) {
