@@ -23,11 +23,11 @@ class WifiRepository(private val ctx: Context) {
                     wifiManager.scanResults.forEach {
                         wifis.add(Wifi(it.SSID, it.BSSID))
                     }
-//                    context.unregisterReceiver(this)
+                    context.unregisterReceiver(this)
                     onSuccess(wifis)
 
                 } else {
-//                    context.unregisterReceiver(this)
+                    context.unregisterReceiver(this)
                     onFailure()
                 }
             }

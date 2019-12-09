@@ -39,19 +39,6 @@ class StartActivity: AppCompatActivity() {
         register.setOnClickListener {view ->
             startActivity(Intent(this@StartActivity, RegisterActivity::class.java))
         }
-
-        test()
     }
-
-    fun test() {
-        val repo = AvailableRoomsRepository.create(this)
-        repo.getAvailableRooms({
-            println(it)
-        }, {
-            println("Fail")
-        })
-
-    }
-
 
 }
