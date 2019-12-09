@@ -34,7 +34,6 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         val binding: ActivityRegisterBinding = DataBindingUtil.setContentView(this,
             R.layout.activity_register
         )
