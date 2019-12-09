@@ -3,9 +3,13 @@ package com.example.mobv.Model
 import com.example.mobv.utils.DateUtils
 import java.util.*
 
-class Room(val roomid: String, private val time: String) {
+class Room(val roomid: String, private val time: String) : ChatRoom {
 
-    fun getTime(): Date {
+    override fun getName(): String {
+        return roomid
+    }
+
+    override fun getTime(): Date {
         return DateUtils.parseTime(time)!!
     }
 

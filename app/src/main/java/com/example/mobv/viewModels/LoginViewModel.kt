@@ -26,11 +26,6 @@ class LoginViewModel(val context: Context) : ViewModel() {
     private val firebaseIdRepository = FirebaseIdRepository()
     private val userRepository = UserRepository()
 
-
-    fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        Log.w("tag", "onTextChanged $s")
-    }
-
     fun login( username: String, txtPassword: String) {
         var loginUser: LoggedUser
 

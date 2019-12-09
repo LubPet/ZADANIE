@@ -12,7 +12,7 @@ class AvailableRoomsRepository(private val ctx: Context, private val wifiReposit
         val rooms = LinkedList<WifiRoom>()
 
         wifis.forEach {
-            if (it.SSID != null && it.SSID.isNotEmpty()) {
+            if (it.SSID != null && it.SSID.isNotEmpty() && it.SSID != "<unknown ssid>") {
                 rooms.add(WifiRoom(it.SSID))
             } else {
                 rooms.add(WifiRoom(it.BSSID!!))
