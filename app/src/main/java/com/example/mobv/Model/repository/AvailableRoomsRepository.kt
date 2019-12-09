@@ -7,17 +7,19 @@ import java.util.*
 
 class AvailableRoomsRepository(private val ctx: Context, private val wifiRepository: WifiRepository) {
 
-    fun getAvailableRooms(onSuccess: (List<WifiRoom>) -> Unit, onFailure: () -> Unit) {
-        wifiRepository.performScan({ wifis ->
-            val rooms = LinkedList<WifiRoom>()
-            wifis.forEach {
-                val name = it.SSID ?: it.BSSID
-                rooms.add(WifiRoom(name!!))
+    fun getAvailableRooms(): List<WifiRoom> {
+        val wifis = wifiRepository.getConnectionInfo()
+        val rooms = LinkedList<WifiRoom>()
+
+        wifis.forEach {
+            if (it.SSID != null && it.SSID.isNotEmpty()) {
+                rooms.add(WifiRoom(it.SSID))
+            } else {
+                rooms.add(WifiRoom(it.BSSID!!))
             }
-            onSuccess(rooms)
-        }, {
-            onFailure()
-        })
+        }
+
+        return rooms
     }
 
     companion object {
