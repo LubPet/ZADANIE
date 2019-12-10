@@ -15,7 +15,6 @@ import com.example.mobv.databinding.FragmentRoomsBinding
 import com.example.mobv.viewModels.RoomsViewModel
 import com.example.mobv.viewModels.RoomsViewModelFactory
 
-
 class RoomsFragment : Fragment() {
 
     private var recyclerView: RecyclerView? = null
@@ -25,6 +24,7 @@ class RoomsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         val binding: FragmentRoomsBinding = FragmentRoomsBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -41,7 +41,7 @@ class RoomsFragment : Fragment() {
         this.recyclerView = recyclerView
 
         roomsViewModel.getRooms().observe(this, Observer { rooms ->
-            roomAdapter = RoomAdapter(context, rooms)
+            roomAdapter = RoomAdapter(context!!, rooms)
             recyclerView.adapter = roomAdapter
         })
 

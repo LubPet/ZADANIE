@@ -17,7 +17,6 @@ import com.example.mobv.session.SessionManager
 
 class UsersViewModel(val context: Context) : ViewModel() {
 
-//    private var availableRoomsRepository = AvailableRoomsRepository.create(context)
     private val messagingRepository = MessagingRepositoryFactory.create()
 
     private val allUsers : MutableLiveData<List<Contact>> = MutableLiveData()

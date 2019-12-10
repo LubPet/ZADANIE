@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".RoomsActivity"></activity>
+        <activity android:name=".RoomMessageActivity" />
         <activity android:name=".MessageActivity" />
         <activity
             android:name=".LoginActivity"

@@ -9,22 +9,24 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mobv.Adapter.RoomAdapter
+import com.example.mobv.Adapter.MessageAdapter
 import com.example.mobv.Adapter.UserAdapter
 import com.example.mobv.Model.factory.MessagingRepositoryFactory
 import com.example.mobv.R
+import com.example.mobv.databinding.FragmentRoomMessageBinding
 import com.example.mobv.databinding.FragmentRoomsBinding
-import com.example.mobv.databinding.FragmentUsersBinding
 import com.example.mobv.session.SessionManager
+import com.example.mobv.viewModels.RoomMessageViewModel
+import com.example.mobv.viewModels.RoomMessageViewModelFactory
 import com.example.mobv.viewModels.RoomsViewModel
 import com.example.mobv.viewModels.RoomsViewModelFactory
-import com.example.mobv.viewModels.UsersViewModel
-import com.example.mobv.viewModels.UsersViewModelFactory
 
-class UsersFragment : Fragment() {
+class RoomMessageFragment : Fragment() {
 
     private var recyclerView: RecyclerView? = null
-    private var userAdapter: UserAdapter? = null
+    private var messageAdapter: MessageAdapter? = null
+
+    private lateinit var roomMessageViewModel: RoomMessageViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,27 +34,29 @@ class UsersFragment : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
-        val binding: FragmentUsersBinding = FragmentUsersBinding.inflate(inflater, container, false)
+        val binding: FragmentRoomMessageBinding = FragmentRoomMessageBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        val viewModelFactory = UsersViewModelFactory(context!!)
-        val usersViewModel = ViewModelProviders.of(this, viewModelFactory).get(UsersViewModel::class.java)
+        val viewModelFactory = RoomMessageViewModelFactory(context!!)
+        roomMessageViewModel = ViewModelProviders.of(this, viewModelFactory).get(RoomMessageViewModel::class.java)
 
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.usersViewModel = usersViewModel
+        binding.roomMessageViewModel = roomMessageViewModel
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(context)
         this.recyclerView = recyclerView
 
-        usersViewModel.getUsers().observe(this, Observer { users ->
-            userAdapter = UserAdapter(context!!, users)
-            recyclerView.adapter = userAdapter
+        roomMessageViewModel.getMessages().observe(this, Observer { messages ->
+            messageAdapter = MessageAdapter(context!!, messages)
+            recyclerView.adapter = messageAdapter
         })
 
-        usersViewModel.readUsers()
+        roomMessageViewModel.readMessages()
+
 
         return view
     }
+
 }

@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 
-import com.example.mobv.Fragments.ChatsFragment
 import com.example.mobv.Fragments.RoomsFragment
 import com.example.mobv.Fragments.UsersFragment
 import com.example.mobv.Model.repository.UserRepository
@@ -38,7 +37,6 @@ class MainActivity : AppCompatActivity() {
 
         viewPagerAdapter.addFragment(RoomsFragment(), "Miestnosti")
         viewPagerAdapter.addFragment(UsersFragment(), "Kontakty")
-        viewPagerAdapter.addFragment(ChatsFragment(), "Konverzácie")
 
         viewPager.adapter = viewPagerAdapter
         tabLayout.setupWithViewPager(viewPager)

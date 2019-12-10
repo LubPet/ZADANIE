@@ -24,16 +24,17 @@ import java.util.*
 import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.mobv.Model.ChatRoom
 import com.example.mobv.R
 import com.example.mobv.databinding.ActivityMessageBinding
 import kotlin.collections.ArrayList
 
 
-class MessageViewModel(val context: Context) : ViewModel() {
+class RoomMessageViewModel(val context: Context) : ViewModel() {
 
     private var loggedUser: LoggedUser = LoggedUser()
 
-    var messages : MutableLiveData<LinkedList<Chat>> = MutableLiveData()
+    var messages: MutableLiveData<LinkedList<Chat>> = MutableLiveData()
 
     private val messagingRepository = MessagingRepositoryFactory.create()
 
@@ -43,54 +44,52 @@ class MessageViewModel(val context: Context) : ViewModel() {
         return messages
     }
 
-    fun sendMessage(message : String = "") {
+    fun sendMessage(message: String = "") {
+        val room = getRoom()
         loggedUser = SessionManager.get(context).getSessionData()!!
         val messagingRepository = MessagingRepositoryFactory.create()
-        messagingRepository.messageContact(context, loggedUser.uid, getContactId(), message, {
-            messages.value!!.add(Chat(loggedUser.uid, getContactId(), message))
+        messagingRepository.messageRoom(context, loggedUser.uid, room.getName(), message, {
+            messages.value!!.add(Chat(loggedUser.uid, room.getName(), message))
+
         }, {
             it.printStackTrace()
             Toast.makeText(context, "Odosielanie zlyhalo", Toast.LENGTH_SHORT).show()
         })
 
-        readMessages(getContactId())
+        readMessages()
         messageContent.setText("")
     }
 
-    fun readMessages(receiver: String) {
+    fun readMessages() {
+        val room = getRoom()
         loggedUser = SessionManager.get(context).getSessionData()!!
-        messagingRepository.readContact(
-            context,
-            loggedUser.uid,
-            getContactId(),
-            { contactMessages ->
-
-                val list = LinkedList<Chat>()
-                contactMessages.forEach { message ->
-                    val chat = Chat()
-                    if (message.uid == loggedUser.uid) {
-                        chat.sender = loggedUser.uid
-                        chat.receiver = receiver
-                    } else {
-                        chat.receiver = loggedUser.uid
-                        chat.sender = receiver
-                    }
-                    chat.message = message.message
-                    list.add(chat)
+        messagingRepository.readRoom(context, loggedUser.uid, room.getName(), { contactMessages ->
+            val list = LinkedList<Chat>()
+            contactMessages.forEach { message ->
+                val chat = Chat()
+                if (message.uid == loggedUser.uid) {
+                    chat.sender = loggedUser.uid
+                    chat.receiver = room.getName()
+                } else {
+                    chat.receiver = loggedUser.uid
+                    chat.sender = room.getName()
                 }
+                chat.message = message.message
+                list.add(chat)
+            }
 
-                messages.postValue(list)
-            },
+            messages.postValue(list)
+        },
             {
                 it.printStackTrace()
                 Toast.makeText(context, "Odosielanie zlyhalo", Toast.LENGTH_SHORT).show()
             })
     }
 
-    fun getContactId(): String {
+    private fun getRoom(): ChatRoom {
         val intent = (context as Activity).intent
-        val contactId = intent.getStringExtra("userid")
-        return contactId!!
+        val room = intent.getSerializableExtra("room")
+        return (room as ChatRoom)
     }
 
 }
