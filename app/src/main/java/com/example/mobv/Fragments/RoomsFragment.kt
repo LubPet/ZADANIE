@@ -30,22 +30,22 @@ class RoomsFragment : Fragment() {
         val view = binding.root
 
         val viewModelFactory = RoomsViewModelFactory(context!!)
-        val rooomsViewModel = ViewModelProviders.of(this, viewModelFactory).get(RoomsViewModel::class.java)
+        val roomsViewModel = ViewModelProviders.of(this, viewModelFactory).get(RoomsViewModel::class.java)
 
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.roomsViewModel = rooomsViewModel
+        binding.roomsViewModel = roomsViewModel
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(context)
         this.recyclerView = recyclerView
 
-        rooomsViewModel.getRooms().observe(this, Observer { rooms ->
+        roomsViewModel.getRooms().observe(this, Observer { rooms ->
             roomAdapter = RoomAdapter(context, rooms)
             recyclerView.adapter = roomAdapter
         })
 
-        rooomsViewModel.readRooms()
+        roomsViewModel.readRooms()
 
         return view
     }
