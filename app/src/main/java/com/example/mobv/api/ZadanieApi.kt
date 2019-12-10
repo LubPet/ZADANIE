@@ -58,7 +58,7 @@ interface ZadanieApi {
 
     companion object {
 
-        private const val BASE_URL = "http://   zadanie.mpage.sk/"
+        private const val BASE_URL = "http://zadanie.mpage.sk/"
 
         fun create(context: Context): ZadanieApi {
 
