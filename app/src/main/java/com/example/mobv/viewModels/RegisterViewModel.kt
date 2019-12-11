@@ -10,6 +10,7 @@ import com.example.mobv.MainActivity
 import com.example.mobv.Model.LoggedUser
 import com.example.mobv.Model.repository.FirebaseIdRepository
 import com.example.mobv.Model.repository.UserRepository
+import com.example.mobv.MyFirebaseMessagingService
 import com.example.mobv.session.SessionManager
 import com.example.mobv.utils.Coroutines
 import kotlinx.coroutines.launch
@@ -24,7 +25,7 @@ class RegisterViewModel(val context: Context) : ViewModel() {
         _name.value = "Igor"
     }*/
 
-    private val firebaseIdRepository = FirebaseIdRepository()
+    private val firebaseIdRepository = FirebaseIdRepository(context)
     private val userRepository = UserRepository()
 
     fun register(username: String, password: String) {

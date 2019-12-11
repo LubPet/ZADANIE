@@ -1,6 +1,7 @@
 package com.example.mobv
 
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -16,6 +17,11 @@ import com.example.mobv.databinding.ActivityMessageBinding
 import com.example.mobv.session.SessionManager
 import com.example.mobv.viewModels.MessageViewModel
 import com.example.mobv.viewModels.MessageViewModelFactory
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+
 
 class MessageActivity : AppCompatActivity() {
 
@@ -60,6 +66,10 @@ class MessageActivity : AppCompatActivity() {
             finish()
         }
 
+        findViewById<AppCompatImageButton>(R.id.gifButton).setOnClickListener {
+            toggleGifSelection()
+        }
+
         messageViewModel.getMessages().observe(this, Observer { messages ->
             messageAdapter = MessageAdapter(this@MessageActivity, messages)
             recyclerView.adapter = messageAdapter
@@ -70,5 +80,24 @@ class MessageActivity : AppCompatActivity() {
         messageViewModel.messageContent = messageContent
 
         messageViewModel.readMessages(messageViewModel.getContact().id)
+    }
+
+    private fun toggleGifSelection() {
+        val view = findViewById<ConstraintLayout>(R.id.gifWindow)!!
+
+        if (!view.isVisible) {
+            showView(view)
+        } else {
+            hideView(view)
+        }
+    }
+
+    private fun showView(view: View) {
+        view.visibility = ConstraintLayout.VISIBLE
+    }
+
+    private fun hideView(view: View) {
+        view.visibility = ConstraintLayout.GONE
+
     }
 }

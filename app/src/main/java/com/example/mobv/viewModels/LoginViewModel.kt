@@ -11,6 +11,9 @@ import com.example.mobv.Model.repository.FirebaseIdRepository
 import com.example.mobv.Model.repository.UserRepository
 import com.example.mobv.session.SessionManager
 import com.example.mobv.utils.Coroutines
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.iid.InstanceIdResult
 import kotlinx.coroutines.launch
 
 
@@ -23,7 +26,7 @@ class LoginViewModel(val context: Context) : ViewModel() {
         _name.value = "Igor"
     }*/
 
-    private val firebaseIdRepository = FirebaseIdRepository()
+    private val firebaseIdRepository = FirebaseIdRepository(context)
     private val userRepository = UserRepository()
 
     fun login( username: String, txtPassword: String) {
