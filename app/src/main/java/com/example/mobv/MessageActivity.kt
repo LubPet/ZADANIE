@@ -64,11 +64,11 @@ class MessageActivity : AppCompatActivity() {
             messageAdapter = MessageAdapter(this@MessageActivity, messages)
             recyclerView.adapter = messageAdapter
         })
-
+        binding.contact = messageViewModel.getContact().name
 
         val messageContent = findViewById<EditText>(R.id.messageContent)
         messageViewModel.messageContent = messageContent
 
-        messageViewModel.readMessages(messageViewModel.getContactId())
+        messageViewModel.readMessages(messageViewModel.getContact().id)
     }
 }

@@ -13,5 +13,10 @@ class DateUtils {
             return formatter.parse(time)
         }
 
+        fun toString(date: Date) : String {
+            val format = SimpleDateFormat("hh:mm:ss dd.MM.yyy", Locale.US)
+            return format.format(date)
+        }
+
     }
 }
