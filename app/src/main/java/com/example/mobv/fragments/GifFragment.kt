@@ -47,7 +47,7 @@ class GifFragment : Fragment() {
 
         gifsViewModel.getGifs().observe(this, Observer { gifs ->
             gifAdapter = GifAdapter(context!!, gifs, GifAdapter.GifListener {
-                print("test")
+
             })
             recyclerView!!.adapter = gifAdapter
         })

@@ -8,7 +8,6 @@ import com.example.mobv.MainActivity
 import com.example.mobv.model.LoggedUser
 import com.example.mobv.model.repository.FirebaseIdRepository
 import com.example.mobv.model.repository.UserRepository
-import com.example.mobv.MyFirebaseMessagingService
 import com.example.mobv.session.SessionManager
 import com.example.mobv.utils.Coroutines
 import kotlinx.coroutines.launch
