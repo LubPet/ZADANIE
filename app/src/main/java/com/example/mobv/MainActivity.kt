@@ -2,24 +2,23 @@ package com.example.mobv
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
-
 import com.example.mobv.Fragments.RoomsFragment
 import com.example.mobv.Fragments.UsersFragment
 import com.example.mobv.Model.repository.UserRepository
 import com.example.mobv.session.SessionManager
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.messaging.FirebaseMessaging
+import java.util.*
 
-import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,10 +47,12 @@ class MainActivity : AppCompatActivity() {
 
 
         val loggedUser = SessionManager.get(this@MainActivity).getSessionData()!!
+        val grim = loggedUser.fid.replace(":","")
 
-        val x = FirebaseMessaging.getInstance().subscribeToTopic("XsTDHS3C2YneVmEW5Ry7")
-
-        Log.e(x.toString(),"ok")
+        FirebaseMessaging.getInstance().subscribeToTopic(grim)
+            .addOnSuccessListener {
+                Toast.makeText(applicationContext, "Success", Toast.LENGTH_LONG).show()
+            }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
