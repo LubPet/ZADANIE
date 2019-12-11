@@ -49,7 +49,9 @@ class MainActivity : AppCompatActivity() {
         val loggedUser = SessionManager.get(this@MainActivity).getSessionData()!!
         val grim = loggedUser.fid.replace(":","")
 
-        FirebaseMessaging.getInstance().subscribeToTopic(grim)
+        FirebaseMessaging.getInstance().isAutoInitEnabled = true
+
+        FirebaseMessaging.getInstance().subscribeToTopic(loggedUser.fid)
             .addOnSuccessListener {
                 Toast.makeText(applicationContext, "Success", Toast.LENGTH_LONG).show()
             }

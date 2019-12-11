@@ -1,33 +1,20 @@
 package com.example.mobv.viewModels
 
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mobv.Adapter.MessageAdapter
-import com.example.mobv.MainActivity
-import com.example.mobv.MessageActivity
 import com.example.mobv.Model.Chat
 import com.example.mobv.Model.LoggedUser
 import com.example.mobv.Model.factory.MessagingRepositoryFactory
 import com.example.mobv.session.SessionManager
-import com.example.mobv.utils.Coroutines
-import kotlinx.coroutines.launch
 import java.util.*
 import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mobv.Model.ChatRoom
-import com.example.mobv.R
-import com.example.mobv.databinding.ActivityMessageBinding
-import kotlin.collections.ArrayList
 
 
 class RoomMessageViewModel(val context: Context) : ViewModel() {
@@ -59,6 +46,7 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
         })
 
         readMessages()
+        notifyRoom(message)
         messageContent.setText("")
     }
 
@@ -74,14 +62,6 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
                     chat.senderName = loggedUser.username
                     chat.receiver = room.getName()
 
-                    val map = mapOf("body" to message.message
-                        ,"title" to "Správa z MOBV!")
-
-                    messagingRepository.notifyContact(context, room.getName(), map , {
-                        Log.i("Notifikacia","Odosielanie notifikácie prešlo")
-                    }, {
-                        Log.e("Notifikacia","Odosielanie notifikácie neprešlo")
-                    })
                 } else {
                     chat.receiver = room.getName()
                     chat.sender = message.name
@@ -99,6 +79,16 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
                 it.printStackTrace()
                 Toast.makeText(context, "Odosielanie zlyhalo", Toast.LENGTH_SHORT).show()
             })
+    }
+
+    private fun notifyRoom(message: String) {
+        val map = mapOf("body" to message, "title" to "Správa z MOBV!")
+
+        messagingRepository.notifyContact(context, getRoom().getName(), map , {
+            Log.i("Notifikacia","Odosielanie notifikácie prešlo")
+        }, {
+            Log.e("Notifikacia","Odosielanie notifikácie neprešlo")
+        })
     }
 
     private fun getRoom(): ChatRoom {
