@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mobv.adapter.GifAdapter
 import com.example.mobv.R
 import com.example.mobv.databinding.FragmentGifsBinding
+import com.example.mobv.interfaces.OnFragmentDataListener
+import com.example.mobv.model.GifResource
 import com.example.mobv.viewModels.GifsViewModel
 import com.example.mobv.viewModels.GifsViewModelFactory
 
@@ -47,13 +49,23 @@ class GifFragment : Fragment() {
 
         gifsViewModel.getGifs().observe(this, Observer { gifs ->
             gifAdapter = GifAdapter(context!!, gifs, GifAdapter.GifListener {
-
+                handleClick(it)
             })
             recyclerView!!.adapter = gifAdapter
         })
 
         if (searchString.isNotBlank()) gifsViewModel.searchGifs(searchString)
         return view
+    }
+
+    private fun handleClick(it: GifResource) {
+        if (activity != null && activity!! is OnFragmentDataListener<*>) {
+            (activity!! as OnFragmentDataListener<GifResource>).onFragmentData(it)
+        }
+
+        if (parentFragment != null && parentFragment!! is OnFragmentDataListener<*>) {
+            (parentFragment!! as OnFragmentDataListener<GifResource>).onFragmentData(it)
+        }
     }
 
 }

@@ -12,7 +12,9 @@ import java.util.*
 import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mobv.model.ChatRoom
+import com.example.mobv.model.giphy.repository.GiphyRepository
 
 
 class RoomMessageViewModel(val context: Context) : ViewModel() {
@@ -22,13 +24,18 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
     var messages: MutableLiveData<LinkedList<Chat>> = MutableLiveData()
 
     private val messagingRepository = MessagingRepositoryFactory.create()
+    private val giphyRepository = GiphyRepository.create(context)
 
     lateinit var messageContent: EditText
 
-    lateinit var recyclerView : RecyclerView
+    lateinit var recyclerView: RecyclerView
 
     fun getMessages(): LiveData<LinkedList<Chat>> {
         return messages
+    }
+
+    fun sendGifMessage(id: String) {
+        sendMessage(messagingRepository.transformToGifMessage(id))
     }
 
     fun sendMessage(message: String = "") {
@@ -51,26 +58,29 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
         val room = getRoom()
         loggedUser = SessionManager.get(context).getSessionData()!!
         messagingRepository.readRoom(context, loggedUser.uid, room.getName(), { contactMessages ->
-            val list = LinkedList<Chat>()
-            contactMessages.forEach { message ->
-                val chat = Chat()
-                if (message.uid == loggedUser.uid) {
-                    chat.sender = loggedUser.uid
-                    chat.senderName = loggedUser.username
-                    chat.receiver = room.getName()
-                } else {
-                    chat.receiver = room.getName()
-                    chat.sender = message.name
-                    chat.senderName = message.name
-                    chat.uid = message.uid
+                val list = LinkedList<Chat>()
+                contactMessages.forEach { message ->
+                    val chat = Chat()
+                    if (message.uid == loggedUser.uid) {
+                        chat.sender = loggedUser.uid
+                        chat.senderName = loggedUser.username
+                        chat.receiver = room.getName()
+                    } else {
+                        chat.receiver = room.getName()
+                        chat.sender = message.name
+                        chat.senderName = message.name
+                        chat.uid = message.uid
+                    }
+                    chat.time = message.getTime()
+                    chat.message = message.message
+                    chat.isGif = messagingRepository.isMessageGIF(message.message)
+                    if (chat.isGif)
+                        chat.gifUrl = giphyRepository.getURL(message.message)
+                    list.add(chat)
                 }
-                chat.time = message.getTime()
-                chat.message = message.message
-                list.add(chat)
-            }
-            recyclerView.scrollToPosition( contactMessages.size - 1)
-            messages.postValue(list)
-        },
+                recyclerView.scrollToPosition(contactMessages.size - 1)
+                messages.postValue(list)
+            },
             {
                 it.printStackTrace()
                 Toast.makeText(context, "Odosielanie zlyhalo", Toast.LENGTH_SHORT).show()

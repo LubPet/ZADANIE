@@ -1,4 +1,4 @@
-package com.example.mobv.model.repository
+package com.example.mobv.model.repositorymessage
 
 import android.content.Context
 import com.example.mobv.model.Room
@@ -55,4 +55,8 @@ interface IMessagingRepository {
         onSuccess: () -> Unit,
         onFailure: (Throwable) -> Unit
     )
+
+    fun transformToGifMessage(gifId: String): String
+
+    fun isMessageGIF(message: String): Boolean
 }

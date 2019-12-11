@@ -7,6 +7,7 @@ import com.example.mobv.api.requests.*
 import com.example.mobv.api.responses.Contact
 import com.example.mobv.api.responses.ContactMessage
 import com.example.mobv.api.responses.RoomMessage
+import com.example.mobv.model.repositorymessage.IMessagingRepository
 import retrofit2.Call
 
 open class MessagingRepository:
@@ -46,6 +47,14 @@ open class MessagingRepository:
         val call: Call<Void> = ZadanieApi.create(ctx).messageRoom(MessageRoomRequest(uid, room, message))
 
         send(call, onSuccess, onFailure)
+    }
+
+    override fun transformToGifMessage(gifId: String): String {
+        return "gif:$gifId"
+    }
+
+    override fun isMessageGIF(message: String): Boolean {
+        return message.startsWith("gif").and(message.length > 3 + 1 + 5)
     }
 
 }

@@ -10,6 +10,9 @@ class Chat {
     var time: Date? = null
     var uid: String? = null
 
+    var isGif: Boolean = false
+    var gifUrl: String? = ""
+
     constructor(sender: String?, receiver: String?, message: String?) {
         this.sender = sender
         this.receiver = receiver

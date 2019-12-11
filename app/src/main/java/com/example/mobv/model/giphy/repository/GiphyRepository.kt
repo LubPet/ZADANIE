@@ -19,6 +19,13 @@ class GiphyRepository(private val ctx: Context) : CallHandler() {
         }, onFailure)
     }
 
+    fun getURL(gifId: String): String {
+        var id = gifId
+        if (gifId.startsWith("gif:"))
+            id = gifId.replace("gif:", "")
+        return "https://media2.giphy.com/media/$id/200w.gif"
+    }
+
     companion object {
 
         fun create(ctx: Context): GiphyRepository {

@@ -25,8 +25,8 @@
             android:textColor="#505050"
             android:textSize="10sp" />
 
-        <TextView
-            android:id="@+id/show_message"
+        <ImageView
+            android:id="@+id/gif_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"

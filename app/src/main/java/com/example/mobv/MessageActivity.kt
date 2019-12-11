@@ -20,9 +20,11 @@ import com.example.mobv.viewModels.MessageViewModelFactory
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import com.example.mobv.interfaces.OnFragmentDataListener
+import com.example.mobv.model.GifResource
 
 
-class MessageActivity : AppCompatActivity() {
+class MessageActivity : AppCompatActivity(), OnFragmentDataListener<GifResource> {
 
     private var messageAdapter: MessageAdapter? = null
 
@@ -50,13 +52,11 @@ class MessageActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycler_view)
         messageViewModel.recyclerView = this.recyclerView
 
-
         binding.recyclerView.setHasFixedSize(true)
 
         val linearLayoutManager = LinearLayoutManager(applicationContext)
         linearLayoutManager.stackFromEnd = true
         recyclerView.layoutManager = linearLayoutManager
-        this.recyclerView = recyclerView
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -105,5 +105,9 @@ class MessageActivity : AppCompatActivity() {
     private fun hideView(view: View) {
         view.visibility = ConstraintLayout.GONE
 
+    }
+
+    override fun onFragmentData(data: GifResource) {
+        messageViewModel.sendGifMessage(data.id)
     }
 }

@@ -14,6 +14,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobv.api.responses.Contact
+import com.example.mobv.model.giphy.repository.GiphyRepository
 
 
 class MessageViewModel(val context: Context) : ViewModel() {
@@ -23,12 +24,17 @@ class MessageViewModel(val context: Context) : ViewModel() {
     var messages : MutableLiveData<LinkedList<Chat>> = MutableLiveData()
 
     private val messagingRepository = MessagingRepositoryFactory.create()
+    private val giphyRepository = GiphyRepository.create(context)
 
     lateinit var messageContent: EditText
     lateinit var recyclerView: RecyclerView
 
     fun getMessages(): LiveData<LinkedList<Chat>> {
         return messages
+    }
+
+    fun sendGifMessage(id: String) {
+        sendMessage(messagingRepository.transformToGifMessage(id))
     }
 
     fun sendMessage(message : String = "") {
@@ -64,6 +70,9 @@ class MessageViewModel(val context: Context) : ViewModel() {
                 }
                 chat.time = message.getTime()
                 chat.message = message.message
+                chat.isGif = messagingRepository.isMessageGIF(message.message)
+                if (chat.isGif)
+                    chat.gifUrl = giphyRepository.getURL(message.message)
                 list.add(chat)
             }
             recyclerView.scrollToPosition( contactMessages.size - 1)
