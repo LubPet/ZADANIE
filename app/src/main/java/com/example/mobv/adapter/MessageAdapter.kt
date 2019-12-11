@@ -47,7 +47,11 @@ class MessageAdapter(
     ) {
         val chat = messages[position]
 
-        holder.senderName.text = chat.sender + " (" + DateUtils.toString(chat.time!!) + ")"
+        var text = chat.sender
+        if (chat.time != null) {
+            text = text + " (" + DateUtils.toString(chat.time!!) + ")"
+        }
+        holder.senderName.text = text
         holder.setMessage(chat)
 
         holder.getMessageView().setOnClickListener {
