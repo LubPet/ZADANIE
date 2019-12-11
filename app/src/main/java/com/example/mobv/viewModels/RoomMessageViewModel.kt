@@ -49,7 +49,7 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
         loggedUser = SessionManager.get(context).getSessionData()!!
         val messagingRepository = MessagingRepositoryFactory.create()
         messagingRepository.messageRoom(context, loggedUser.uid, room.getName(), message, {
-            messages.value!!.add(Chat(loggedUser.uid, room.getName(), message))
+            messages.value!!.add(Chat(loggedUser.uid, room.getName(), message)) // TODO
 
         }, {
             it.printStackTrace()
@@ -69,11 +69,15 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
                 val chat = Chat()
                 if (message.uid == loggedUser.uid) {
                     chat.sender = loggedUser.uid
+                    chat.senderName = loggedUser.username
                     chat.receiver = room.getName()
                 } else {
-                    chat.receiver = loggedUser.uid
-                    chat.sender = room.getName()
+                    chat.receiver = room.getName()
+                    chat.sender = message.name
+                    chat.senderName = message.name
+                    chat.uid = message.uid
                 }
+                chat.time = message.getTime()
                 chat.message = message.message
                 list.add(chat)
             }

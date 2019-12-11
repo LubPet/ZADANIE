@@ -6,6 +6,7 @@
     <data>
         <variable name="messageViewModel" type="com.example.mobv.viewModels.MessageViewModel" />
         <variable name="text" type="String" />
+        <variable name="contact" type="String" />
     </data>
 
     <RelativeLayout
@@ -27,19 +28,14 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/MenuStyle">
 
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:id="@+id/profile_image" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/username"
                     android:layout_marginStart="25dp"
                     android:textColor="#fff"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:text="@{contact}"/>
 
             </androidx.appcompat.widget.Toolbar>
 

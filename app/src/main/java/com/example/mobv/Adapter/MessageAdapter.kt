@@ -1,14 +1,19 @@
 package com.example.mobv.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mobv.MessageActivity
 import com.example.mobv.Model.Chat
 import com.example.mobv.R
+import com.example.mobv.RoomMessageActivity
+import com.example.mobv.api.responses.Contact
 import com.example.mobv.session.SessionManager.Companion.get
+import com.example.mobv.utils.DateUtils
 
 class MessageAdapter(
     private val mContext: Context,
@@ -36,6 +41,14 @@ class MessageAdapter(
     ) {
         val chat = messages[position]
         holder.showMessage.text = chat.message
+//        holder.time.text = DateUtils.toString(chat.time!!)
+//        holder.sender.text = chat.sender
+
+        holder.showMessage.setOnClickListener {
+            val intent = Intent(mContext, MessageActivity::class.java)
+            intent.putExtra("user", Contact("", chat.uid!!))
+            mContext.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -52,9 +65,10 @@ class MessageAdapter(
         }
     }
 
-    inner class ViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var showMessage: TextView = itemView.findViewById(R.id.show_message)
+//        var time: TextView = itemView.findViewById(R.id.time)
+//        var sender: TextView = itemView.findViewById(R.id.sender)
     }
 
     companion object {

@@ -35,7 +35,7 @@ class UserAdapter(
         holder.username.text = user.name
         holder.itemView.setOnClickListener {
             val intent = Intent(mContext, MessageActivity::class.java)
-            intent.putExtra("userid", user.id)
+            intent.putExtra("user", user)
             mContext.startActivity(intent)
         }
     }

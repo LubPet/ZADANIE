@@ -31,7 +31,7 @@ class UsersViewModel(val context: Context) : ViewModel() {
 
         messagingRepository.getContacts(context, uid, { contacts ->
 
-            var list = ArrayList<Contact>()
+            val list = ArrayList<Contact>()
 
             contacts.forEach {
                 list.add(it)
