@@ -27,8 +27,6 @@ class StartActivity: AppCompatActivity() {
                 finish()
             }
         }
-
-        test()
     }
 
     override fun onCreate(saveInstanceState: Bundle?) {
@@ -47,12 +45,5 @@ class StartActivity: AppCompatActivity() {
         }
     }
 
-    fun test() {
-        GiphyRepository.create(this).search("lmao", 20, {
-            println(it)
-        }, {
-            it.printStackTrace()
-        })
-    }
 
 }

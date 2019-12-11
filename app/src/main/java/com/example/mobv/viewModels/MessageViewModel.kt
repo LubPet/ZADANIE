@@ -22,8 +22,11 @@ import com.example.mobv.utils.Coroutines
 import kotlinx.coroutines.launch
 import java.util.*
 import android.app.Activity
+import android.webkit.WebView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.mobv.Model.GifResource
+import com.example.mobv.Model.giphy.repository.GiphyRepository
 import com.example.mobv.R
 import com.example.mobv.databinding.ActivityMessageBinding
 import kotlin.collections.ArrayList
