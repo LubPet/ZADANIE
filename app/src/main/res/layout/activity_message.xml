@@ -67,7 +67,7 @@
 
             <fragment
                 android:id="@+id/gif_fragment"
-                android:name="com.example.mobv.Fragments.GifFragment"
+                android:name="com.example.mobv.fragments.GifFragment"
                 android:layout_width="match_parent"
                 android:layout_height="312dp"
                 app:layout_constraintBottom_toBottomOf="parent"

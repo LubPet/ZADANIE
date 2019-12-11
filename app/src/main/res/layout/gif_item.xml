@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:padding="1dp"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/gif"
-        android:layout_width="fill_parent"
+    <data>
+        <variable name="clickListener" type="com.example.mobv.adapter.GifAdapter.GifListener" />
+        <variable name="gifResourceModel" type="com.example.mobv.model.GifResource" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        />
+        android:orientation="vertical"
+        android:padding="10dp">
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/gif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> clickListener.onClick(gifResourceModel)}"/>
+
+    </RelativeLayout>
+</layout>

@@ -1,8 +1,7 @@
 package com.example.mobv.api
 
 import android.content.Context
-import com.example.mobv.Model.repository.TokenRepository
-import com.example.mobv.api.requests.RefreshTokenRequest
+import com.example.mobv.model.repository.TokenRepository
 import com.example.mobv.session.SessionManager
 import okhttp3.Request
 import okhttp3.Response

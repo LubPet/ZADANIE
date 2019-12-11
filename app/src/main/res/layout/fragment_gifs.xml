@@ -1,26 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable name="gifsViewModel" type="com.example.mobv.viewModels.GifsViewModel" />
         <variable name="searchQuery" type="String" />
     </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativeLayout"
         android:background="#B4B4B4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:id="@+id/searchInput"
+            android:layout_width="327dp"
+            android:layout_height="46dp"
+            android:inputType="text"
+            android:text="@{searchQuery}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".Fragments.GifFragment" />
+            android:background="#FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:context=".fragments.GifFragment" />
 
-    </RelativeLayout>
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="328dp"
+            android:text="@string/h_adaj"
+            android:onClick="@{() -> gifsViewModel.searchGifs(searchInput.getText().toString())}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

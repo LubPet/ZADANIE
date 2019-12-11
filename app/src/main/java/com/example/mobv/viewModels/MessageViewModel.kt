@@ -1,35 +1,20 @@
 package com.example.mobv.viewModels
 
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.mobv.Adapter.MessageAdapter
-import com.example.mobv.MainActivity
-import com.example.mobv.MessageActivity
-import com.example.mobv.Model.Chat
-import com.example.mobv.Model.LoggedUser
-import com.example.mobv.Model.factory.MessagingRepositoryFactory
+import com.example.mobv.model.Chat
+import com.example.mobv.model.LoggedUser
+import com.example.mobv.model.factory.MessagingRepositoryFactory
 import com.example.mobv.session.SessionManager
-import com.example.mobv.utils.Coroutines
-import kotlinx.coroutines.launch
 import java.util.*
 import android.app.Activity
-import android.webkit.WebView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mobv.api.responses.Contact
-
-
-
+import com.example.mobv.model.giphy.repository.GiphyRepository
 
 
 class MessageViewModel(val context: Context) : ViewModel() {
@@ -39,12 +24,17 @@ class MessageViewModel(val context: Context) : ViewModel() {
     var messages : MutableLiveData<LinkedList<Chat>> = MutableLiveData()
 
     private val messagingRepository = MessagingRepositoryFactory.create()
+    private val giphyRepository = GiphyRepository.create(context)
 
     lateinit var messageContent: EditText
     lateinit var recyclerView: RecyclerView
 
     fun getMessages(): LiveData<LinkedList<Chat>> {
         return messages
+    }
+
+    fun sendGifMessage(id: String) {
+        sendMessage(messagingRepository.transformToGifMessage(id))
     }
 
     fun sendMessage(message : String = "") {
@@ -59,11 +49,11 @@ class MessageViewModel(val context: Context) : ViewModel() {
             Toast.makeText(context, "Odosielanie zlyhalo", Toast.LENGTH_SHORT).show()
         })
 
-        readMessages(contact.id)
+        readMessages()
         messageContent.setText("")
     }
 
-    fun readMessages(receiver: String) {
+    fun readMessages() {
         loggedUser = SessionManager.get(context).getSessionData()!!
         messagingRepository.readContact(context, loggedUser.uid, getContact().id, { contactMessages ->
             val list = LinkedList<Chat>()
@@ -80,6 +70,9 @@ class MessageViewModel(val context: Context) : ViewModel() {
                 }
                 chat.time = message.getTime()
                 chat.message = message.message
+                chat.isGif = messagingRepository.isMessageGIF(message.message)
+                if (chat.isGif)
+                    chat.gifUrl = giphyRepository.getURL(message.message)
                 list.add(chat)
             }
             recyclerView.scrollToPosition( contactMessages.size - 1)

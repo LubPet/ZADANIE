@@ -11,8 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mobv.Adapter.MessageAdapter
-import com.example.mobv.Model.LoggedUser
+import com.example.mobv.adapter.MessageAdapter
+import com.example.mobv.model.LoggedUser
 import com.example.mobv.databinding.ActivityMessageBinding
 import com.example.mobv.session.SessionManager
 import com.example.mobv.viewModels.MessageViewModel
@@ -20,10 +20,11 @@ import com.example.mobv.viewModels.MessageViewModelFactory
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
+import com.example.mobv.interfaces.OnFragmentDataListener
+import com.example.mobv.model.GifResource
 
 
-class MessageActivity : AppCompatActivity() {
+class MessageActivity : AppCompatActivity(), OnFragmentDataListener<GifResource> {
 
     private var messageAdapter: MessageAdapter? = null
 
@@ -51,13 +52,11 @@ class MessageActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycler_view)
         messageViewModel.recyclerView = this.recyclerView
 
-
         binding.recyclerView.setHasFixedSize(true)
 
         val linearLayoutManager = LinearLayoutManager(applicationContext)
         linearLayoutManager.stackFromEnd = true
         recyclerView.layoutManager = linearLayoutManager
-        this.recyclerView = recyclerView
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -74,7 +73,11 @@ class MessageActivity : AppCompatActivity() {
         }
 
         messageViewModel.getMessages().observe(this, Observer { messages ->
-            messageAdapter = MessageAdapter(this@MessageActivity, messages)
+            if (messageAdapter != null) {
+                messageAdapter!!.setChats(messages)
+            } else {
+                messageAdapter = MessageAdapter(this@MessageActivity, messages)
+            }
             recyclerView.adapter = messageAdapter
         })
         binding.contact = messageViewModel.getContact().name
@@ -82,10 +85,7 @@ class MessageActivity : AppCompatActivity() {
         val messageContent = findViewById<EditText>(R.id.messageContent)
         messageViewModel.messageContent = messageContent
 
-        messageViewModel.readMessages(messageViewModel.getContact().id)
-
-
-
+        messageViewModel.readMessages()
     }
 
     private fun toggleGifSelection() {
@@ -105,5 +105,9 @@ class MessageActivity : AppCompatActivity() {
     private fun hideView(view: View) {
         view.visibility = ConstraintLayout.GONE
 
+    }
+
+    override fun onFragmentData(data: GifResource) {
+        messageViewModel.sendGifMessage(data.id)
     }
 }

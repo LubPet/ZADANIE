@@ -35,7 +35,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <fragment android:name="com.example.mobv.Fragments.RoomMessageFragment"
+    <fragment android:name="com.example.mobv.fragments.RoomMessageFragment"
         android:id="@+id/room_message_fragment"
         android:layout_weight="2"
         android:layout_width="match_parent"
