@@ -14,7 +14,7 @@ class DateUtils {
         }
 
         fun toString(date: Date) : String {
-            val format = SimpleDateFormat("hh:mm:ss dd.MM.yyy", Locale.US)
+            val format = SimpleDateFormat("HH:mm dd.MM.yyyy", Locale.ENGLISH)
             return format.format(date)
         }
 

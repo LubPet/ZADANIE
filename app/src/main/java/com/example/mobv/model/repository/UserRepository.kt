@@ -39,4 +39,5 @@ class UserRepository {
     fun logout(ctx: Context) {
         SessionManager.get(ctx).clearSessionData()
     }
+
 }

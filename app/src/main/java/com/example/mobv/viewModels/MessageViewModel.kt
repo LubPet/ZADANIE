@@ -12,6 +12,7 @@ import java.util.*
 import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mobv.api.responses.Contact
 
 
@@ -24,6 +25,7 @@ class MessageViewModel(val context: Context) : ViewModel() {
     private val messagingRepository = MessagingRepositoryFactory.create()
 
     lateinit var messageContent: EditText
+    lateinit var recyclerView: RecyclerView
 
     fun getMessages(): LiveData<LinkedList<Chat>> {
         return messages
@@ -64,7 +66,7 @@ class MessageViewModel(val context: Context) : ViewModel() {
                 chat.message = message.message
                 list.add(chat)
             }
-
+            recyclerView.scrollToPosition( contactMessages.size - 1)
             messages.postValue(list)
         },
         {
