@@ -10,8 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relativeLayout"
-        android:background="#B4B4B4"
         android:layout_width="match_parent"
+        android:background="#B4B4B4"
         android:layout_height="wrap_content">
 
         <EditText
