@@ -30,5 +30,9 @@ class RoomMessageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_room_message)
         setSupportActionBar(toolbar)
+
+
+
+
     }
 }

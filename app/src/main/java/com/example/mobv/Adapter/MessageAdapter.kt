@@ -42,12 +42,15 @@ class MessageAdapter(
         val chat = messages[position]
         holder.showMessage.text = chat.message
 //        holder.time.text = DateUtils.toString(chat.time!!)
-//        holder.sender.text = chat.sender
+        holder.senderName.text = chat.sender + " (" + DateUtils.toString(chat.time!!) + ")"
 
         holder.showMessage.setOnClickListener {
             val intent = Intent(mContext, MessageActivity::class.java)
-            intent.putExtra("user", Contact("", chat.uid!!))
-            mContext.startActivity(intent)
+
+            if(chat.uid != null) {
+                intent.putExtra("user", Contact("", chat.uid!!))
+                mContext.startActivity(intent)
+            }
         }
     }
 
@@ -66,9 +69,10 @@ class MessageAdapter(
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var showMessage: TextView = itemView.findViewById(R.id.show_message)
-//        var time: TextView = itemView.findViewById(R.id.time)
-//        var sender: TextView = itemView.findViewById(R.id.sender)
+
+        val senderName: TextView = itemView.findViewById(R.id.sender_info)
+        val showMessage: TextView = itemView.findViewById(R.id.show_message)
+
     }
 
     companion object {

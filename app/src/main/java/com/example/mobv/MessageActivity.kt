@@ -27,7 +27,7 @@ class MessageActivity : AppCompatActivity() {
 
     private var messageAdapter: MessageAdapter? = null
 
-    var recyclerView: RecyclerView? = null
+    lateinit var recyclerView: RecyclerView
 
     private var loggedUser : LoggedUser = LoggedUser()
 
@@ -48,12 +48,15 @@ class MessageActivity : AppCompatActivity() {
         binding.messageViewModel = messageViewModel
         messageViewModel.messages = MutableLiveData()
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView = findViewById(R.id.recycler_view)
+        messageViewModel.recyclerView = this.recyclerView
+
+
         binding.recyclerView.setHasFixedSize(true)
 
         val linearLayoutManager = LinearLayoutManager(applicationContext)
         linearLayoutManager.stackFromEnd = true
-        recyclerView!!.layoutManager = linearLayoutManager
+        recyclerView.layoutManager = linearLayoutManager
         this.recyclerView = recyclerView
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -80,6 +83,9 @@ class MessageActivity : AppCompatActivity() {
         messageViewModel.messageContent = messageContent
 
         messageViewModel.readMessages(messageViewModel.getContact().id)
+
+
+
     }
 
     private fun toggleGifSelection() {

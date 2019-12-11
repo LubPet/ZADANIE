@@ -25,12 +25,11 @@ import android.app.Activity
 import android.webkit.WebView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.mobv.Model.GifResource
-import com.example.mobv.Model.giphy.repository.GiphyRepository
-import com.example.mobv.R
+
 import com.example.mobv.api.responses.Contact
-import com.example.mobv.databinding.ActivityMessageBinding
-import kotlin.collections.ArrayList
+
+
+
 
 
 class MessageViewModel(val context: Context) : ViewModel() {
@@ -42,6 +41,7 @@ class MessageViewModel(val context: Context) : ViewModel() {
     private val messagingRepository = MessagingRepositoryFactory.create()
 
     lateinit var messageContent: EditText
+    lateinit var recyclerView: RecyclerView
 
     fun getMessages(): LiveData<LinkedList<Chat>> {
         return messages
@@ -93,7 +93,7 @@ class MessageViewModel(val context: Context) : ViewModel() {
                 chat.message = message.message
                 list.add(chat)
             }
-
+            recyclerView.scrollToPosition( contactMessages.size - 1)
             messages.postValue(list)
         },
         {
