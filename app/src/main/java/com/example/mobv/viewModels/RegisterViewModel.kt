@@ -2,14 +2,12 @@ package com.example.mobv.viewModels
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.ViewModel
 import com.example.mobv.MainActivity
-import com.example.mobv.Model.LoggedUser
-import com.example.mobv.Model.repository.FirebaseIdRepository
-import com.example.mobv.Model.repository.UserRepository
+import com.example.mobv.model.LoggedUser
+import com.example.mobv.model.repository.FirebaseIdRepository
+import com.example.mobv.model.repository.UserRepository
 import com.example.mobv.session.SessionManager
 import com.example.mobv.utils.Coroutines
 import kotlinx.coroutines.launch

@@ -11,9 +11,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 
-import com.example.mobv.Fragments.RoomsFragment
-import com.example.mobv.Fragments.UsersFragment
-import com.example.mobv.Model.repository.UserRepository
+import com.example.mobv.fragments.RoomsFragment
+import com.example.mobv.fragments.UsersFragment
+import com.example.mobv.model.repository.UserRepository
 import com.google.android.material.tabs.TabLayout
 
 import java.util.ArrayList

@@ -4,13 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mobv.Adapter.RoomAdapter
-import com.example.mobv.Adapter.UserAdapter
-import com.example.mobv.Model.ChatRoom
-import com.example.mobv.Model.Room
-import com.example.mobv.Model.User
-import com.example.mobv.Model.factory.MessagingRepositoryFactory
-import com.example.mobv.Model.repository.AvailableRoomsRepository
+import com.example.mobv.model.factory.MessagingRepositoryFactory
 import com.example.mobv.api.responses.Contact
 import com.example.mobv.session.SessionManager
 

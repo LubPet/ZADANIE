@@ -1,16 +1,8 @@
 package com.example.mobv.api
 
 import android.content.Context
-import com.example.mobv.Model.GifResource
-import com.example.mobv.Model.LoggedUser
-import com.example.mobv.Model.Room
-import com.example.mobv.api.requests.*
-import com.example.mobv.api.responses.Contact
-import com.example.mobv.api.responses.ContactMessage
 import com.example.mobv.api.responses.GiphyResponseData
-import com.example.mobv.api.responses.RoomMessage
 import okhttp3.OkHttpClient
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

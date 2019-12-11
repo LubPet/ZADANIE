@@ -1,33 +1,18 @@
 package com.example.mobv.viewModels
 
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.mobv.Adapter.MessageAdapter
-import com.example.mobv.MainActivity
-import com.example.mobv.MessageActivity
-import com.example.mobv.Model.Chat
-import com.example.mobv.Model.LoggedUser
-import com.example.mobv.Model.factory.MessagingRepositoryFactory
+import com.example.mobv.model.Chat
+import com.example.mobv.model.LoggedUser
+import com.example.mobv.model.factory.MessagingRepositoryFactory
 import com.example.mobv.session.SessionManager
-import com.example.mobv.utils.Coroutines
-import kotlinx.coroutines.launch
 import java.util.*
 import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.mobv.Model.ChatRoom
-import com.example.mobv.R
-import com.example.mobv.databinding.ActivityMessageBinding
-import kotlin.collections.ArrayList
+import com.example.mobv.model.ChatRoom
 
 
 class RoomMessageViewModel(val context: Context) : ViewModel() {

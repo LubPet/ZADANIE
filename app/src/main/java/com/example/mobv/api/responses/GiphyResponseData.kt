@@ -1,6 +1,6 @@
 package com.example.mobv.api.responses
 
-import com.example.mobv.Model.GifResource
+import com.example.mobv.model.GifResource
 
 class GiphyResponseData {
 
