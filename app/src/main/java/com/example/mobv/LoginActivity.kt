@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         binding.loginViewModel = loginViewModel
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar!!.title = "Prihlásenie"
+        supportActionBar!!.title = "Dark side awaits you..."
         supportActionBar!!.setDefaultDisplayHomeAsUpEnabled(true)
     }
 }

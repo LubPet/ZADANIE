@@ -13,22 +13,31 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Zadanie z MOBV"
+        android:text="            MOBV zadanie\n\n    10/10 Best App - IGN\nSimply awesome! - My mom"
         android:textColor="#fff"
         android:textSize="25sp"
         android:textStyle="bold" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/login"
-        android:layout_marginTop="100dp"
-        android:text="prihásiť sa" />
+        style="@android:style/Widget.Button"
+        android:layout_width="288dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="15dp"
+        android:background="#ffc845"
+        android:text="I'm already a member!"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#fff" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/register"
-        android:text="registrácia" />
+        style="@android:style/Widget.Button"
+        android:layout_width="354dp"
+        android:layout_height="wrap_content"
+        android:background="#ffc845"
+        android:text="I want to join (I promise)"
+        android:textColor="#fff"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 </LinearLayout>

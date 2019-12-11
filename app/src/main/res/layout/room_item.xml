@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:padding="10dp"
     android:layout_height="wrap_content">
 
-    <TextView
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="roomName"
+        android:id="@+id/roomImage"
+        android:background="@android:drawable/sym_action_chat" />
+
+
+
+    <TextView
         android:id="@+id/roomName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/roomImage"
+        android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_centerVertical="true"
-        android:textSize="18sp"/>
+        android:layout_marginBottom="8dp"
+        android:layout_toEndOf="@+id/roomImage"
+        android:text="roomName"
+        android:textSize="18sp" />
 
 </RelativeLayout>

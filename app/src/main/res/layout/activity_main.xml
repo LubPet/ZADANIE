@@ -41,9 +41,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
-            app:tabSelectedTextColor="#fff"
-            app:tabIndicatorColor="#fff"
-            app:tabTextColor="#fff"/>
+            app:tabBackground="@drawable/common_google_signin_btn_text_light_normal_background"
+            app:tabGravity="center"
+            app:tabIndicator="@drawable/background_right"
+            app:tabIndicatorColor="#4D6B6B6B"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="#000000"
+            app:tabTextColor="#818181" />
 
 
     </com.google.android.material.appbar.AppBarLayout>

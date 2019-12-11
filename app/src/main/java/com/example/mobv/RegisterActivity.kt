@@ -42,7 +42,7 @@ class RegisterActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar!!.title = "Registrácia"
+        supportActionBar!!.title = "JOIN us!"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 }

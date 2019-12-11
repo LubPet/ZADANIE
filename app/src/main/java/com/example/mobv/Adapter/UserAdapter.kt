@@ -33,6 +33,7 @@ class UserAdapter(
     ) {
         val user = contacts[position]
         holder.username.text = user.name
+
         holder.itemView.setOnClickListener {
             val intent = Intent(mContext, MessageActivity::class.java)
             intent.putExtra("user", user)

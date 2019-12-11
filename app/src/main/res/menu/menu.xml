@@ -4,9 +4,8 @@
 
     <item
         android:id="@+id/logout"
-        android:title="Odhlásiť sa"
+        android:title="See ya soon!"
         app:showAsAction="never">
-
     </item>
 
 </menu>

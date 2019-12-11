@@ -18,45 +18,48 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="675dp"
             android:layout_below="@+id/toolbar"
-            android:padding="16dp"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Vytvoriť nový účet"
-                android:textSize="22dp"
+                android:layout_height="319dp"
+                android:text="JOIN us!"
+                android:textSize="42dp"
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/usernameReg"
+                style="@style/Base.Widget.MaterialComponents.TextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/usernameReg"
                 android:layout_marginTop="10dp"
-                app:met_floatingLabel="normal"
-                android:hint="Meno" />
+                android:hint="Meno"
+                app:met_floatingLabel="normal" />
 
             <EditText
+                android:id="@+id/passwordReg"
+                style="@style/Base.Widget.MaterialComponents.TextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/passwordReg"
-                android:inputType="textPassword"
                 android:layout_marginTop="10dp"
-                app:met_floatingLabel="normal"
-                android:hint="Heslo" />
+                android:hint="Heslo"
+                android:inputType="textPassword"
+                app:met_floatingLabel="normal" />
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Registruj sa"
                 android:id="@+id/btn_register"
-                android:background="@color/colorPrimaryDark"
+                android:layout_width="match_parent"
+                android:layout_height="181dp"
                 android:layout_marginTop="10dp"
+                android:background="#ffc845"
                 android:onClick="@{() -> registerViewModel.register(usernameReg.getText().toString(), passwordReg.getText().toString())}"
                 android:padding="20dp"
+                android:text="I'm ready!"
+                android:textSize="30dp"
                 android:textColor="#fff" />
 
         </LinearLayout>

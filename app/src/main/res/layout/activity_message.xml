@@ -80,42 +80,50 @@
 
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:padding="5dp"
             android:id="@+id/bottom"
-            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="106dp"
             android:layout_alignParentBottom="true"
-            android:layout_height="wrap_content">
-
-            <ImageButton
-                android:id="@+id/gifButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="50dp"
-                android:layout_marginRight="50dp"
-                android:background="@mipmap/ic_launcher" />
+            android:background="#fff"
+            android:padding="5dp">
 
             <EditText
                 android:id="@+id/messageContent"
-                android:layout_width="301dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="60dp"
+                android:layout_width="300dp"
+                android:layout_height="84dp"
+                android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/btn_send"
                 android:background="@android:color/transparent"
-                android:hint="Napíš správu..."
+                android:gravity="top"
+                android:hint="What's on your mind?"
                 android:text="@{text}" />
 
             <ImageButton
+                android:id="@+id/btn_send"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/ic_action_name"
-                android:id="@+id/btn_send"
-                android:onClick="@{() -> messageViewModel.sendMessage(messageContent.getText().toString())}"
+                android:layout_alignBottom="@+id/gifButton"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/ic_action_name"
+                android:onClick="@{() -> messageViewModel.sendMessage(messageContent.getText().toString())}"
+                android:tint="#037ef3" />
+
+            <ImageButton
+                android:id="@+id/gifButton"
+                style="@android:style/Widget.Holo.Light.ImageButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignBottom="@+id/messageContent"
+                android:layout_marginEnd="9dp"
+                android:layout_marginRight="347dp"
+                android:layout_marginBottom="44dp"
+                android:layout_toStartOf="@+id/messageContent"
+                android:background="#FFFFFF"
+                android:src="@android:drawable/ic_menu_add" />
 
         </RelativeLayout>
 
