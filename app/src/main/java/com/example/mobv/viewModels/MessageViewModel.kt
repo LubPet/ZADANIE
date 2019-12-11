@@ -53,11 +53,13 @@ class MessageViewModel(val context: Context) : ViewModel() {
 
         val messagingRepository = MessagingRepositoryFactory.create()
         messagingRepository.messageContact(context, loggedUser.uid, contact.id, message, {
-            messages.value!!.add(Chat(loggedUser.uid, contact.id, message))
+            messages.value!!.add(Chat(loggedUser.uid, contact.id, message + " KAR"))
         }, {
             it.printStackTrace()
             Toast.makeText(context, "Odosielanie zlyhalo", Toast.LENGTH_SHORT).show()
         })
+
+
 
         readMessages(contact.id)
         messageContent.setText("")
@@ -73,6 +75,15 @@ class MessageViewModel(val context: Context) : ViewModel() {
                     chat.sender = loggedUser.uid
                     chat.senderName = loggedUser.username
                     chat.receiver = message.contact_name
+
+                    val map = mapOf("body" to message.message
+                                   ,"title" to "Správa z MOBV!")
+
+                    messagingRepository.notifyContact(context, message.contact_fid, map , {
+                        Log.i("Notifikacia","Odosielanie notifikácie prešlo")
+                    }, {
+                        Log.e("Notifikacia","Odosielanie notifikácie neprešlo")
+                    })
                 } else {
                     chat.receiver = loggedUser.uid
                     chat.sender = message.contact_name

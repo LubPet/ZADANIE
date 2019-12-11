@@ -19,7 +19,7 @@ internal class MyFirebaseMessagingService : FirebaseMessagingService() {
         super.onNewToken(s)
         Log.e("NEW_TOKEN", s)
 
-        var user: LoggedUser = SessionManager.get(this).getSessionData()!!
+        var user: LoggedUser = SessionManager.get(this@MyFirebaseMessagingService).getSessionData()!!
         var userRepository = UserRepository()
         Coroutines.create().launch {
             userRepository.setFID(this@MyFirebaseMessagingService, user.uid, s)

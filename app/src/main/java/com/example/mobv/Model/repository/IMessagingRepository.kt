@@ -55,4 +55,11 @@ interface IMessagingRepository {
         onSuccess: () -> Unit,
         onFailure: (Throwable) -> Unit
     )
+    fun notifyContact(
+        ctx: Context,
+        to: String,
+        data: Map<String,String>,
+        onSuccess: () -> Unit,
+        onFailure: (Throwable) -> Unit
+    )
 }

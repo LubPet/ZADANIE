@@ -2,6 +2,7 @@ package com.example.mobv
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +15,9 @@ import androidx.viewpager.widget.ViewPager
 import com.example.mobv.Fragments.RoomsFragment
 import com.example.mobv.Fragments.UsersFragment
 import com.example.mobv.Model.repository.UserRepository
+import com.example.mobv.session.SessionManager
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.messaging.FirebaseMessaging
 
 import java.util.ArrayList
 
@@ -40,6 +43,15 @@ class MainActivity : AppCompatActivity() {
 
         viewPager.adapter = viewPagerAdapter
         tabLayout.setupWithViewPager(viewPager)
+
+
+
+
+        val loggedUser = SessionManager.get(this@MainActivity).getSessionData()!!
+
+        val x = FirebaseMessaging.getInstance().subscribeToTopic("XsTDHS3C2YneVmEW5Ry7")
+
+        Log.e(x.toString(),"ok")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

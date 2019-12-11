@@ -71,6 +71,15 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
                     chat.sender = loggedUser.uid
                     chat.senderName = loggedUser.username
                     chat.receiver = room.getName()
+
+                    val map = mapOf("body" to message.message
+                        ,"title" to "Správa z MOBV!")
+
+                    messagingRepository.notifyContact(context, room.getName(), map , {
+                        Log.i("Notifikacia","Odosielanie notifikácie prešlo")
+                    }, {
+                        Log.e("Notifikacia","Odosielanie notifikácie neprešlo")
+                    })
                 } else {
                     chat.receiver = room.getName()
                     chat.sender = message.name

@@ -2,6 +2,7 @@ package com.example.mobv.Model.repository
 
 import android.content.Context
 import com.example.mobv.Model.Room
+import com.example.mobv.api.NotificationsApi
 import com.example.mobv.api.ZadanieApi
 import com.example.mobv.api.requests.*
 import com.example.mobv.api.responses.Contact
@@ -29,6 +30,12 @@ open class MessagingRepository:
 
     override fun messageContact(ctx: Context, uid: String, contact: String, message: String, onSuccess: () -> Unit, onFailure: (Throwable) -> Unit) {
         val call: Call<Void> = ZadanieApi.create(ctx).messageContact(MessageContactRequest(uid, contact, message))
+
+        send(call, onSuccess, onFailure)
+    }
+
+    override fun notifyContact(ctx: Context, to: String, data: Map<String,String>, onSuccess: () -> Unit, onFailure: (Throwable) -> Unit) {
+        val call: Call<Void> = NotificationsApi.create(ctx).notifyContact(NotifyContactRequest(to, data))
 
         send(call, onSuccess, onFailure)
     }
