@@ -47,7 +47,7 @@ class MessageAdapter(
     ) {
         val chat = messages[position]
 
-        var text = chat.sender
+        var text = chat.senderName
         if (chat.time != null) {
             text = text + " (" + DateUtils.toString(chat.time!!) + ")"
         }
@@ -58,7 +58,7 @@ class MessageAdapter(
             val intent = Intent(mContext, MessageActivity::class.java)
 
             if (chat.uid != null) {
-                intent.putExtra("user", Contact("", chat.uid!!))
+                intent.putExtra("user", Contact(chat.senderName!!, chat.uid!!))
                 mContext.startActivity(intent)
             }
         }

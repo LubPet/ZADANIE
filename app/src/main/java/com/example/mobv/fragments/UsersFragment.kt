@@ -12,13 +12,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mobv.adapter.UserAdapter
 import com.example.mobv.R
 import com.example.mobv.databinding.FragmentUsersBinding
+import com.example.mobv.interfaces.OnFocusListener
 import com.example.mobv.viewModels.UsersViewModel
 import com.example.mobv.viewModels.UsersViewModelFactory
 
-class UsersFragment : Fragment() {
+class UsersFragment : Fragment(), OnFocusListener {
 
     private var recyclerView: RecyclerView? = null
     private var userAdapter: UserAdapter? = null
+
+    private lateinit var usersViewModel: UsersViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +33,7 @@ class UsersFragment : Fragment() {
         val view = binding.root
 
         val viewModelFactory = UsersViewModelFactory(context!!)
-        val usersViewModel = ViewModelProviders.of(this, viewModelFactory).get(UsersViewModel::class.java)
+        usersViewModel = ViewModelProviders.of(this, viewModelFactory).get(UsersViewModel::class.java)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.usersViewModel = usersViewModel
@@ -49,4 +52,9 @@ class UsersFragment : Fragment() {
 
         return view
     }
+
+    override fun onFocus() {
+        usersViewModel.readUsers()
+    }
+
 }

@@ -31,7 +31,7 @@ class GifAdapter(
         holder.bind(gif, listener)
 
         Glide.with(mContext)
-            .load(gif.images.fixed_height_small.url)
+            .load(gif.images.fixed_height.url)
             .into(holder.gif)
 
     }

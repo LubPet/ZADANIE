@@ -12,13 +12,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mobv.adapter.RoomAdapter
 import com.example.mobv.R
 import com.example.mobv.databinding.FragmentRoomsBinding
+import com.example.mobv.interfaces.OnFocusListener
 import com.example.mobv.viewModels.RoomsViewModel
 import com.example.mobv.viewModels.RoomsViewModelFactory
 
-class RoomsFragment : Fragment() {
+class RoomsFragment : Fragment(), OnFocusListener {
 
     private var recyclerView: RecyclerView? = null
     private var roomAdapter: RoomAdapter? = null
+
+    private lateinit var roomsViewModel: RoomsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +33,7 @@ class RoomsFragment : Fragment() {
         val view = binding.root
 
         val viewModelFactory = RoomsViewModelFactory(context!!)
-        val roomsViewModel = ViewModelProviders.of(this, viewModelFactory).get(RoomsViewModel::class.java)
+        roomsViewModel = ViewModelProviders.of(this, viewModelFactory).get(RoomsViewModel::class.java)
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.roomsViewModel = roomsViewModel
@@ -48,6 +51,10 @@ class RoomsFragment : Fragment() {
         roomsViewModel.readRooms()
 
         return view
+    }
+
+    override fun onFocus() {
+        roomsViewModel.readRooms()
     }
 
 
