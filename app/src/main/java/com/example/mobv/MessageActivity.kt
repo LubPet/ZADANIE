@@ -88,6 +88,11 @@ class MessageActivity : AppCompatActivity(), OnFragmentDataListener<GifResource>
         messageViewModel.readMessages()
     }
 
+    override fun onResume() {
+        super.onResume()
+        messageViewModel.readMessages()
+    }
+
     private fun toggleGifSelection() {
         val view = findViewById<ConstraintLayout>(R.id.gifWindow)!!
 

@@ -65,6 +65,11 @@ class RoomMessageFragment : Fragment(), OnFragmentDataListener<GifResource> {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        roomMessageViewModel.readMessages()
+    }
+
     private fun toggleGifSelection() {
         val view = view!!.findViewById<ConstraintLayout>(R.id.gifWindow)!!
 

@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Prihlásenie"
+                android:text="@string/prihl_senie"
                 android:textSize="22dp"
                 android:textStyle="bold" />
 
@@ -40,7 +40,7 @@
                 android:text="@{meno}"
                 android:layout_marginTop="10dp"
                 app:met_floatingLabel="normal"
-                android:hint="Email" />
+                android:hint="@string/email" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -50,12 +50,12 @@
                 android:inputType="textPassword"
                 android:layout_marginTop="10dp"
                 app:met_floatingLabel="normal"
-                android:hint="Heslo" />
+                android:hint="@string/heslo" />
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Prihlásiť sa"
+                android:text="@string/login"
                 android:onClick="@{() -> loginViewModel.login(email.getText().toString(), password.getText().toString())}"
                 android:id="@+id/btn_login"
                 android:background="@color/colorPrimaryDark"

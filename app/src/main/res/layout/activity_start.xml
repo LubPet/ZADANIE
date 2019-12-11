@@ -23,12 +23,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/login"
         android:layout_marginTop="100dp"
-        android:text="prihásiť sa" />
+        android:text="@string/prih_si_sa" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/register"
-        android:text="registrácia" />
+        android:text="@string/registr_cia" />
 
 </LinearLayout>

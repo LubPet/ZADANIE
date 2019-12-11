@@ -8,4 +8,10 @@
     <string name="write_message">Napíš správu...</string>
     <string name="hello">hello</string>
     <string name="h_adaj">Hľadaj</string>
+    <string name="login">Prihlásiť sa</string>
+    <string name="heslo">Heslo</string>
+    <string name="prihl_senie">Prihlásenie</string>
+    <string name="email">Email</string>
+    <string name="prih_si_sa">prihlásiť sa</string>
+    <string name="registr_cia">registrácia</string>
 </resources>
