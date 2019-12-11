@@ -75,6 +75,7 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
                     chat.receiver = room.getName()
                     chat.sender = message.name
                     chat.senderName = message.name
+                    chat.uid = message.uid
                 }
                 chat.time = message.getTime()
                 chat.message = message.message
