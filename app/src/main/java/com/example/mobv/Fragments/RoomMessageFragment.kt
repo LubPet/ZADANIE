@@ -24,7 +24,7 @@ import com.example.mobv.viewModels.RoomsViewModelFactory
 
 class RoomMessageFragment : Fragment() {
 
-    private var recyclerView: RecyclerView? = null
+    lateinit var recyclerView: RecyclerView
     private var messageAdapter: MessageAdapter? = null
 
     private lateinit var roomMessageViewModel: RoomMessageViewModel
@@ -48,6 +48,8 @@ class RoomMessageFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(context)
         this.recyclerView = recyclerView
+
+        roomMessageViewModel.recyclerView = this.recyclerView
 
         roomMessageViewModel.getMessages().observe(this, Observer { messages ->
             messageAdapter = MessageAdapter(context!!, messages)

@@ -46,8 +46,11 @@ class MessageAdapter(
 
         holder.showMessage.setOnClickListener {
             val intent = Intent(mContext, MessageActivity::class.java)
-            intent.putExtra("user", Contact("", chat.uid!!))
-            mContext.startActivity(intent)
+
+            if(chat.uid != null) {
+                intent.putExtra("user", Contact("", chat.uid!!))
+                mContext.startActivity(intent)
+            }
         }
     }
 

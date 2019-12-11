@@ -40,6 +40,8 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
 
     lateinit var messageContent: EditText
 
+    lateinit var recyclerView : RecyclerView
+
     fun getMessages(): LiveData<LinkedList<Chat>> {
         return messages
     }
@@ -81,7 +83,7 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
                 chat.message = message.message
                 list.add(chat)
             }
-
+            recyclerView.scrollToPosition( contactMessages.size - 1)
             messages.postValue(list)
         },
             {
