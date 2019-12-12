@@ -48,22 +48,12 @@
             android:background="#fff"
             android:padding="5dp">
 
-            <ImageButton
-                android:id="@+id/gifButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="50dp"
-                android:layout_marginRight="50dp"
-                android:background="@mipmap/ic_launcher" />
-
             <EditText
                 android:id="@+id/messageContent"
-                android:layout_width="357dp"
-                android:layout_height="126dp"
-                android:layout_marginEnd="4dp"
-                android:layout_toStartOf="@+id/btn_send"
+                android:layout_width="300dp"
+                android:layout_height="84dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/btn_send"
                 android:background="@android:color/transparent"
                 android:gravity="top"
                 android:hint="What's on your mind?"
@@ -73,10 +63,63 @@
                 android:id="@+id/btn_send"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_alignBottom="@+id/gifButton"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_marginEnd="9dp"
+                android:layout_marginRight="9dp"
+                android:layout_marginBottom="0dp"
                 android:background="@drawable/ic_action_name"
-                android:onClick="@{() -> roomMessageViewModel.sendMessage(messageContent.getText().toString())}" />
+                android:onClick="@{() -> roomMessageViewModel.sendMessage(messageContent.getText().toString())}"
+                android:tint="#037ef3" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gifButton"
+                android:onClick="@{() -> roomMessageViewModel.readMessages()}"
+                android:layout_marginTop="-40dp"
+                android:background="@android:drawable/ic_menu_rotate" />
+
+            <ImageButton
+                android:id="@+id/gifButton"
+                style="@android:style/Widget.Holo.Light.ImageButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignBottom="@+id/messageContent"
+                android:layout_marginEnd="9dp"
+                android:layout_marginRight="347dp"
+                android:layout_marginBottom="44dp"
+                android:layout_toStartOf="@+id/messageContent"
+                android:background="#FFFFFF"
+                android:src="@android:drawable/ic_menu_add" />
+
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/gifButton"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_marginEnd="-30dp"-->
+<!--                android:layout_toStartOf="@+id/messageContent"-->
+<!--                android:background="@mipmap/ic_launcher" />-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/messageContent"-->
+<!--                android:layout_width="253dp"-->
+<!--                android:layout_height="111dp"-->
+<!--                android:background="@android:color/transparent"-->
+<!--                android:gravity="top"-->
+<!--                android:hint="What's on your mind?"-->
+<!--                android:text="@{text}" />-->
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/btn_send"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_marginStart="107dp"-->
+<!--                android:layout_toEndOf="@+id/messageContent"-->
+<!--                android:background="@drawable/ic_action_name"-->
+<!--                android:onClick="@{() -> roomMessageViewModel.sendMessage(messageContent.getText().toString())}" />-->
 
         </RelativeLayout>
 

@@ -113,6 +113,14 @@
                 android:tint="#037ef3" />
 
             <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gifButton"
+                android:onClick="@{() -> messageViewModel.readMessages()}"
+                android:layout_marginTop="-40dp"
+                android:background="@android:drawable/ic_menu_rotate" />
+
+            <ImageButton
                 android:id="@+id/gifButton"
                 style="@android:style/Widget.Holo.Light.ImageButton"
                 android:layout_width="40dp"
