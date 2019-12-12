@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         FirebaseMessaging.getInstance().isAutoInitEnabled = true
 
         try {
-            FirebaseMessaging.getInstance().subscribeToTopic(loggedUser.fid)
+            FirebaseMessaging.getInstance().subscribeToTopic(grim)
                 .addOnSuccessListener {
                     Toast.makeText(applicationContext, "Success", Toast.LENGTH_LONG).show()
                 }
