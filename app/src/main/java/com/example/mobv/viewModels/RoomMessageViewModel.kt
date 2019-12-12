@@ -63,7 +63,8 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
             notifyRoom(message, loggedUser.username)
 
             try {
-                FirebaseMessaging.getInstance().subscribeToTopic(room.getName())
+                val grim = room.getName().replace(":","")
+                FirebaseMessaging.getInstance().subscribeToTopic(grim)
                     .addOnSuccessListener {
                         Toast.makeText(context, "Success: subscribed to - " + room.getName(), Toast.LENGTH_LONG).show()
                     }
@@ -118,7 +119,9 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
     private fun notifyRoom(message: String, name: String) {
         val map = mapOf("body" to message, "title" to name)
 
-        messagingRepository.notifyContact(context, getRoom().getName(), map, "type_a", map, {
+        val grim = name.replace(":","")
+
+        messagingRepository.notifyContact(context, grim, map, "type_a", map, {
             Log.i("Notifikacia","Odosielanie notifikácie prešlo")
         }, {
             Log.e("Notifikacia","Odosielanie notifikácie neprešlo")
