@@ -35,6 +35,11 @@ class LoginViewModel(val context: Context) : ViewModel() {
                 firebaseIdRepository.getId(loginUser, { id ->
                     loginUser.fid = id
                     loginUser.username = username
+
+                    Coroutines.create().launch {
+                        userRepository.setFID(context, loginUser.uid, id)
+                    }
+
                     onSuccess(loginUser)
                 }, {
                     onFailure()
