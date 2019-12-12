@@ -119,9 +119,16 @@ class MessageActivity : AppCompatActivity(), OnFragmentDataListener<GifResource>
     }
 
     override fun onFragmentData(data: GifResource) {
-        messageViewModel.sendGifMessage(data.id, {}, {
-            Toast.makeText(this@MessageActivity, "Odosielanie zlyhalo", Toast.LENGTH_SHORT).show()
-        })
+        try {
+            messageViewModel.sendGifMessage(data.id, {}, {
+                Toast.makeText(this@MessageActivity, "Odosielanie zlyhalo", Toast.LENGTH_SHORT)
+                    .show()
+            })
+
+        } catch (e: IllegalArgumentException) {
+            Toast.makeText(this@MessageActivity, "Nie ste pripojený k WiFi danej miestnosti", Toast.LENGTH_LONG)
+                .show()
+        }
     }
 
     class OnSendMessageListener(val callback: (String) -> Unit) {
