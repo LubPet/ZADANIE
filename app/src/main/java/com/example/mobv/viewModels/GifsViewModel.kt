@@ -19,7 +19,7 @@ class GifsViewModel(val context: Context) : ViewModel() {
     }
 
     fun searchGifs(query: String) {
-        giphyRepository.search(query, 20, {
+        giphyRepository.search(query, 10, {
             gifs.postValue(it)
 
         }, {

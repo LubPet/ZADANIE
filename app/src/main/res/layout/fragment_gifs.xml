@@ -16,7 +16,7 @@
 
         <EditText
             android:id="@+id/searchInput"
-            android:layout_width="327dp"
+            android:layout_width="300dp"
             android:layout_height="46dp"
             android:inputType="text"
             android:text="@{searchQuery}"
@@ -33,12 +33,13 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:context=".fragments.GifFragment" />
 
-        <Button
+        <ImageButton
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="328dp"
             android:text="@string/h_adaj"
+            android:background="@drawable/search"
             android:onClick="@{() -> gifsViewModel.searchGifs(searchInput.getText().toString())}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

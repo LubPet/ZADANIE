@@ -44,7 +44,7 @@ class RoomsViewModel(val context: Context) : ViewModel() {
                 foundRooms.add(Room.public())
             }
 
-            allRooms.value = filter(foundRooms).sortedBy { it.getName() }
+            allRooms.value = filter(foundRooms).sortedBy { it.getTime() }
 
         }, {
             it.printStackTrace()
