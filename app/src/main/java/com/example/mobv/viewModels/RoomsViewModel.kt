@@ -55,7 +55,7 @@ class RoomsViewModel(val context: Context) : ViewModel() {
     private fun filter(list: List<ChatRoom>): List<ChatRoom> {
         val filtered = ArrayList<ChatRoom>()
         list.forEach { room ->
-            if (filtered.none { it.getName() == room.getName()}) {
+            if (filtered.none { it.getName() == room.getName()} && room.getName().trim() != "") {
                 filtered.add(room)
             }
         }
