@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.annotation.Px
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -25,8 +26,14 @@ import com.example.mobv.viewModels.MainViewModel
 import com.example.mobv.viewModels.MainViewModelFactory
 import com.example.mobv.viewModels.RoomMessageViewModel
 import com.example.mobv.viewModels.RoomMessageViewModelFactory
+import com.example.mobv.Fragments.RoomsFragment
+import com.example.mobv.Fragments.UsersFragment
+import com.example.mobv.Model.repository.UserRepository
+import com.example.mobv.session.SessionManager
 import com.google.android.material.tabs.TabLayout
 import okhttp3.internal.userAgent
+import java.util.*
+import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 
 
@@ -71,6 +78,17 @@ class MainActivity : AppCompatActivity() {
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(position: Int, positionOffset: Float, @Px positionOffsetPixels: Int) {}
         })
+
+        val loggedUser = SessionManager.get(this@MainActivity).getSessionData()!!
+        val grim = loggedUser.fid.replace(":","")
+
+        FirebaseMessaging.getInstance().isAutoInitEnabled = true
+
+        FirebaseMessaging.getInstance().subscribeToTopic(loggedUser.fid)
+            .addOnSuccessListener {
+                Toast.makeText(applicationContext, "Success", Toast.LENGTH_LONG).show()
+            }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

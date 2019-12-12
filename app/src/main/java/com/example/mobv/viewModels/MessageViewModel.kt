@@ -20,6 +20,7 @@ import com.example.mobv.model.giphy.repository.GiphyRepository
 class MessageViewModel(val context: Context) : ViewModel() {
 
     private var loggedUser: LoggedUser = LoggedUser()
+    private var contactFid: String = ""
 
     var messages : MutableLiveData<LinkedList<Chat>> = MutableLiveData()
 
@@ -44,14 +45,17 @@ class MessageViewModel(val context: Context) : ViewModel() {
         val messagingRepository = MessagingRepositoryFactory.create()
         messagingRepository.messageContact(context, loggedUser.uid, contact.id, message, {
             messages.value!!.add(Chat(loggedUser.uid, contact.id, message))
+
+            readMessages()
+            notifyUser(message)
+            messageContent.setText("")
             onSuccess()
         }, {
             it.printStackTrace()
             onFailure()
         })
 
-        readMessages()
-        messageContent.setText("")
+
     }
 
     fun readMessages() {
@@ -64,6 +68,8 @@ class MessageViewModel(val context: Context) : ViewModel() {
                     chat.sender = loggedUser.uid
                     chat.senderName = loggedUser.username
                     chat.receiver = message.contact_name
+
+                    contactFid = message.contact_fid
                 } else {
                     chat.receiver = loggedUser.uid
                     chat.sender = message.contact_name
@@ -82,6 +88,15 @@ class MessageViewModel(val context: Context) : ViewModel() {
         {
             it.printStackTrace()
             Toast.makeText(context, "Odosielanie zlyhalo", Toast.LENGTH_SHORT).show()
+        })
+    }
+
+    private fun notifyUser(message: String) {
+        val map = mapOf("body" to message, "title" to "Správa z MOBV!")
+        messagingRepository.notifyContact(context, contactFid, map , {
+            Log.i("Notifikacia","Odosielanie notifikácie prešlo")
+        }, {
+            Log.e("Notifikacia","Odosielanie notifikácie neprešlo")
         })
     }
 

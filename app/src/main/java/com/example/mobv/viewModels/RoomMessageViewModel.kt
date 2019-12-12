@@ -1,12 +1,17 @@
 package com.example.mobv.viewModels
 
 import android.content.Context
+import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.example.mobv.model.Chat
 import com.example.mobv.model.LoggedUser
 import com.example.mobv.model.factory.MessagingRepositoryFactory
+import androidx.recyclerview.widget.RecyclerView
+import com.example.mobv.Model.Chat
+import com.example.mobv.Model.LoggedUser
+import com.example.mobv.Model.factory.MessagingRepositoryFactory
 import com.example.mobv.session.SessionManager
 import java.util.*
 import android.app.Activity
@@ -20,6 +25,7 @@ import com.example.mobv.model.repository.AvailableRoomsRepository
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import java.lang.IllegalArgumentException
+import com.example.mobv.Model.ChatRoom
 
 
 class RoomMessageViewModel(val context: Context) : ViewModel() {
@@ -55,6 +61,11 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
         val messagingRepository = MessagingRepositoryFactory.create()
         messagingRepository.messageRoom(context, loggedUser.uid, room.getName(), message, {
             messages.value!!.add(Chat(loggedUser.uid, room.getName(), message))
+
+            readMessages()
+            notifyRoom(message)
+            messageContent.setText("")
+
             onSuccess()
 
         }, {
@@ -62,8 +73,6 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
             onFailure()
         })
 
-        readMessages()
-        messageContent.setText("")
     }
 
     fun readMessages() {
@@ -97,6 +106,16 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
                 it.printStackTrace()
                 Toast.makeText(context, "Odosielanie zlyhalo", Toast.LENGTH_SHORT).show()
             })
+    }
+
+    private fun notifyRoom(message: String) {
+        val map = mapOf("body" to message, "title" to "Správa z MOBV!")
+
+        messagingRepository.notifyContact(context, getRoom().getName(), map , {
+            Log.i("Notifikacia","Odosielanie notifikácie prešlo")
+        }, {
+            Log.e("Notifikacia","Odosielanie notifikácie neprešlo")
+        })
     }
 
     private fun getRoom(): ChatRoom {
