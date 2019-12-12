@@ -119,7 +119,7 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
     private fun notifyRoom(message: String, name: String) {
         val map = mapOf("body" to message, "title" to name)
 
-        val grim = name.replace(":","")
+        val grim = name.replace("_","")
 
         messagingRepository.notifyContact(context, grim, map, "type_a", map, {
             Log.i("Notifikacia","Odosielanie notifikácie prešlo")
