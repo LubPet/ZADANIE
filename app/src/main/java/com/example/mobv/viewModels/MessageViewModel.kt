@@ -94,7 +94,7 @@ class MessageViewModel(val context: Context) : ViewModel() {
 
     private fun notifyUser(message: String) {
         val map = mapOf("body" to message, "title" to "Správa z MOBV!")
-        messagingRepository.notifyContact(context, contactFid, map , {
+        messagingRepository.notifyContact(context, contactFid, map, "type_a", map, {
             Log.i("Notifikacia","Odosielanie notifikácie prešlo")
         }, {
             Log.e("Notifikacia","Odosielanie notifikácie neprešlo")

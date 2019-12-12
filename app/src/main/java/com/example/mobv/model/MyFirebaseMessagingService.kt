@@ -37,9 +37,6 @@ internal class MyFirebaseMessagingService : FirebaseMessagingService() {
         super.onMessageReceived(remoteMessage)
 
         Log.d(TAG, "Data: " + remoteMessage.data.toString())
-
-        if (remoteMessage.notification != null) {
-            Log.d(TAG, "Notification: " + remoteMessage.notification!!.toString())
-        }
+        Log.d(TAG, "Notification: " + remoteMessage.notification!!.toString())
     }
 }

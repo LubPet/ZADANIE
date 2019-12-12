@@ -32,8 +32,8 @@ open class MessagingRepository:
         send(call, onSuccess, onFailure)
     }
 
-    override fun notifyContact(ctx: Context, to: String, data: Map<String,String>, onSuccess: () -> Unit, onFailure: (Throwable) -> Unit) {
-        val call: Call<Void> = NotificationsApi.create(ctx).notifyContact(NotifyContactRequest(to, data))
+    override fun notifyContact(ctx: Context, to: String, data: Map<String,String>,collapse_key : String, notification: Map<String,String>, onSuccess: () -> Unit, onFailure: (Throwable) -> Unit) {
+        val call: Call<Void> = NotificationsApi.create(ctx).notifyContact(NotifyContactRequest(to, data, collapse_key, notification))
 
         send(call, onSuccess, onFailure)
     }

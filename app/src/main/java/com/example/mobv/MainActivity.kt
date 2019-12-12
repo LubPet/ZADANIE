@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.title = ""
 
+        FirebaseMessaging.getInstance().isAutoInitEnabled = true
 
         val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
         val viewPager = findViewById<ViewPager>(R.id.view_pager)
@@ -76,22 +77,6 @@ class MainActivity : AppCompatActivity() {
             override fun onPageScrollStateChanged(state: Int) {}
             override fun onPageScrolled(position: Int, positionOffset: Float, @Px positionOffsetPixels: Int) {}
         })
-
-        val loggedUser = SessionManager.get(this@MainActivity).getSessionData()!!
-        val grim = loggedUser.fid.replace(":","")
-
-        FirebaseMessaging.getInstance().isAutoInitEnabled = true
-
-        try {
-            FirebaseMessaging.getInstance().subscribeToTopic(grim)
-                .addOnSuccessListener {
-                    Toast.makeText(applicationContext, "Success", Toast.LENGTH_LONG).show()
-                }
-        } catch (e: Exception) {
-            Log.wtf("Subscribing fail", e)
-        }
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

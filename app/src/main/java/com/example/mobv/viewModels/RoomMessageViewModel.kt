@@ -20,6 +20,8 @@ import com.example.mobv.model.giphy.repository.GiphyRepository
 import com.example.mobv.model.repository.AvailableRoomsRepository
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.messaging.FirebaseMessaging
+import java.lang.Exception
 import java.lang.IllegalArgumentException
 
 
@@ -59,6 +61,16 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
 
             readMessages()
             notifyRoom(message)
+
+            try {
+                FirebaseMessaging.getInstance().subscribeToTopic(room.getName())
+                    .addOnSuccessListener {
+                        Toast.makeText(context, "Success: subscribed to - " + room.getName(), Toast.LENGTH_LONG).show()
+                    }
+            } catch (e: Exception) {
+                Log.wtf("Subscribing fail", e)
+            }
+
             messageContent.setText("")
 
             onSuccess()
@@ -106,7 +118,7 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
     private fun notifyRoom(message: String) {
         val map = mapOf("body" to message, "title" to "Správa z MOBV!")
 
-        messagingRepository.notifyContact(context, getRoom().getName(), map , {
+        messagingRepository.notifyContact(context, getRoom().getName(), map, "type_a", map, {
             Log.i("Notifikacia","Odosielanie notifikácie prešlo")
         }, {
             Log.e("Notifikacia","Odosielanie notifikácie neprešlo")

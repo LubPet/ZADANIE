@@ -59,6 +59,8 @@ interface IMessagingRepository {
         ctx: Context,
         to: String,
         data: Map<String,String>,
+        collapse_key: String,
+        notification: Map<String,String>,
         onSuccess: () -> Unit,
         onFailure: (Throwable) -> Unit
     )
