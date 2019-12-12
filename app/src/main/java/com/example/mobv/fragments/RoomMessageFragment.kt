@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
@@ -19,6 +20,7 @@ import com.example.mobv.interfaces.OnFragmentDataListener
 import com.example.mobv.model.GifResource
 import com.example.mobv.viewModels.RoomMessageViewModel
 import com.example.mobv.viewModels.RoomMessageViewModelFactory
+import java.lang.IllegalArgumentException
 
 class RoomMessageFragment : Fragment(), OnFragmentDataListener<GifResource> {
 
@@ -41,6 +43,13 @@ class RoomMessageFragment : Fragment(), OnFragmentDataListener<GifResource> {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.roomMessageViewModel = roomMessageViewModel
+        binding.sendMessageListener = OnSendMessageListener { message ->
+            try {
+                roomMessageViewModel.sendMessage(message)
+            } catch (e: IllegalArgumentException) {
+                Toast.makeText(context, "Nie ste pripojený k WiFi danej miestnosti", Toast.LENGTH_LONG).show()
+            }
+        }
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.setHasFixedSize(true)
@@ -91,6 +100,14 @@ class RoomMessageFragment : Fragment(), OnFragmentDataListener<GifResource> {
 
     override fun onFragmentData(data: GifResource) {
         roomMessageViewModel.sendGifMessage(data.id)
+    }
+
+    class OnSendMessageListener(val callback: (String) -> Unit) {
+
+        fun sendMessage(message: String) {
+            callback(message)
+        }
+
     }
 
 }

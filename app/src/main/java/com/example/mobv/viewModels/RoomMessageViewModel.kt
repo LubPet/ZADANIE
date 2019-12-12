@@ -14,7 +14,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobv.model.ChatRoom
+import com.example.mobv.model.WifiRoom
 import com.example.mobv.model.giphy.repository.GiphyRepository
+import com.example.mobv.model.repository.AvailableRoomsRepository
+import java.lang.IllegalArgumentException
 
 
 class RoomMessageViewModel(val context: Context) : ViewModel() {
@@ -24,6 +27,7 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
     var messages: MutableLiveData<LinkedList<Chat>> = MutableLiveData()
 
     private val messagingRepository = MessagingRepositoryFactory.create()
+    private val availableRoomsRepository = AvailableRoomsRepository.create(context)
     private val giphyRepository = GiphyRepository.create(context)
 
     lateinit var messageContent: EditText
@@ -40,6 +44,11 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
 
     fun sendMessage(message: String = "") {
         val room = getRoom()
+
+        if (!isConnected()) {
+            throw IllegalArgumentException("not connected")
+        }
+
         loggedUser = SessionManager.get(context).getSessionData()!!
         val messagingRepository = MessagingRepositoryFactory.create()
         messagingRepository.messageRoom(context, loggedUser.uid, room.getName(), message, {
@@ -91,6 +100,13 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
         val intent = (context as Activity).intent
         val room = intent.getSerializableExtra("room")
         return (room as ChatRoom)
+    }
+
+
+    private fun isConnected(): Boolean {
+        val currentRoom = getRoom()
+        val wifiRooms : List<WifiRoom> = availableRoomsRepository.getAvailableRooms()
+        return (wifiRooms.any { it.getName() == currentRoom.getName() })
     }
 
 }

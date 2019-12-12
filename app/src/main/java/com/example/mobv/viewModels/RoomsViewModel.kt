@@ -44,12 +44,22 @@ class RoomsViewModel(val context: Context) : ViewModel() {
                 foundRooms.add(Room.public())
             }
 
-            allRooms.value = foundRooms
+            allRooms.value = filter(foundRooms).sortedBy { it.getName() }
 
         }, {
             it.printStackTrace()
             throw it
         })
+    }
+
+    private fun filter(list: List<ChatRoom>): List<ChatRoom> {
+        val filtered = ArrayList<ChatRoom>()
+        list.forEach { room ->
+            if (filtered.none { it.getName() == room.getName()}) {
+                filtered.add(room)
+            }
+        }
+        return filtered
     }
 
 }

@@ -30,7 +30,7 @@ class UsersViewModel(val context: Context) : ViewModel() {
             contacts.forEach {
                 list.add(it)
             }
-            allUsers.postValue(list)
+            allUsers.postValue(list.sortedBy { it.name })
 
         }, {
             it.printStackTrace()

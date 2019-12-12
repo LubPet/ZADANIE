@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFBCC756"
+        android:background="#C7C9B4"
         tools:context=".fragments.RoomsFragment">
 
         <androidx.recyclerview.widget.RecyclerView

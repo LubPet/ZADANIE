@@ -7,6 +7,7 @@
     <data>
         <variable name="roomMessageViewModel" type="com.example.mobv.viewModels.RoomMessageViewModel" />
         <variable name="text" type="String" />
+        <variable name="sendMessageListener" type="com.example.mobv.fragments.RoomMessageFragment.OnSendMessageListener" />
     </data>
 
     <RelativeLayout
@@ -74,7 +75,7 @@
                 android:layout_height="40dp"
                 android:background="@drawable/ic_action_name"
                 android:id="@+id/btn_send"
-                android:onClick="@{() -> roomMessageViewModel.sendMessage(messageContent.getText().toString())}"
+                android:onClick="@{() -> sendMessageListener.sendMessage(messageContent.getText().toString())}"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true" />
 

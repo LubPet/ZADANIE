@@ -7,15 +7,24 @@ import android.view.MenuItem
 import androidx.annotation.Px
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import com.example.mobv.databinding.ActivityMainBinding
+import com.example.mobv.databinding.ActivityMessageBinding
 import com.example.mobv.fragments.RoomsFragment
 import com.example.mobv.fragments.UsersFragment
 import com.example.mobv.interfaces.OnFocusListener
 import com.example.mobv.model.repository.UserRepository
+import com.example.mobv.session.SessionManager
+import com.example.mobv.viewModels.MainViewModel
+import com.example.mobv.viewModels.MainViewModelFactory
+import com.example.mobv.viewModels.RoomMessageViewModel
+import com.example.mobv.viewModels.RoomMessageViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import okhttp3.internal.userAgent
 import java.util.*
@@ -23,15 +32,24 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var userRepository = UserRepository()
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val viewModelFactory = MainViewModelFactory(this)
+        mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this  // use Fragment.viewLifecycleOwner for fragments
+        binding.loggedUser = SessionManager.get(this).getSessionData()!!
+        binding.mainViewModel = mainViewModel
+
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar!!.title = ""
+
 
         val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
         val viewPager = findViewById<ViewPager>(R.id.view_pager)
@@ -64,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
 
             R.id.logout -> {
-                userRepository.logout(this@MainActivity)
+                mainViewModel.logout()
                 startActivity(Intent(this@MainActivity, StartActivity::class.java))
                 finish()
                 return true

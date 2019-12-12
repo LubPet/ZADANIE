@@ -105,7 +105,7 @@
                 android:layout_marginRight="60dp"
                 android:layout_toLeftOf="@+id/btn_send"
                 android:background="@android:color/transparent"
-                android:hint="Napíš správu..."
+                android:hint="@string/write_message"
                 android:text="@{text}" />
 
             <ImageButton

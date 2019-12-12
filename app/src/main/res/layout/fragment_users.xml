@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#BCC756"
+        android:background="#C7C9B4"
         tools:context=".fragments.UsersFragment">
 
         <!-- TODO: Update blank fragment layout -->
