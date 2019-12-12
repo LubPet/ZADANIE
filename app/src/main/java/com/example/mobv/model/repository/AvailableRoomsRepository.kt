@@ -12,13 +12,17 @@ class AvailableRoomsRepository(private val ctx: Context, private val wifiReposit
 
         wifis.forEach {
             if (it.SSID != null && it.SSID.isNotEmpty() && it.SSID != "<unknown ssid>") {
-                rooms.add(WifiRoom(it.SSID))
+                rooms.add(WifiRoom(clean(it.SSID)))
             } else {
                 rooms.add(WifiRoom(it.BSSID!!))
             }
         }
 
         return rooms
+    }
+
+    private fun clean(str: String): String {
+        return str.replace("\"", "")
     }
 
     companion object {

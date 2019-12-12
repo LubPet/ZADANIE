@@ -21,7 +21,13 @@ internal class MyFirebaseMessagingService : FirebaseMessagingService() {
         Log.e("NEW_TOKEN", s)
 
         val userRepository = UserRepository()
-        var user: LoggedUser = SessionManager.get(this@MyFirebaseMessagingService).getSessionData()!!
+        val user: LoggedUser? = SessionManager.get(this@MyFirebaseMessagingService).getSessionData()
+
+        if (user == null) {
+            Log.e("NEW TOKEN", "No user session")
+            return
+        }
+
         Coroutines.create().launch {
             userRepository.setFID(this@MyFirebaseMessagingService, user.uid, s)
         }
