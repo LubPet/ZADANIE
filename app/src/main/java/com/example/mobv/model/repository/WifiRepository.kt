@@ -47,10 +47,29 @@ class WifiRepository(private val ctx: Context) {
         val wifi = wifiManager.connectionInfo
 
         val wifis = ArrayList<Wifi>()
+
+        if (wifi == null) {
+            return ArrayList()
+        }
+
+        var bssid = ""
+        if (wifi.bssid != null) {
+            bssid = wifi.bssid.toString()
+        }
+
+        var ssid = ""
+        if (wifi.ssid != null) {
+            ssid = wifi.ssid.toString()
+        }
+
+        if (bssid.trim() == "" && ssid.trim() == "") {
+            return ArrayList()
+        }
+
         wifis.add(
             Wifi(
-                wifi.ssid.toString(),
-                wifi.bssid.toString()
+                ssid,
+                bssid
             )
         )
 
