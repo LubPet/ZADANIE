@@ -60,7 +60,7 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
             messages.value!!.add(Chat(loggedUser.uid, room.getName(), message))
 
             readMessages()
-            notifyRoom(message)
+            notifyRoom(message, loggedUser.username)
 
             try {
                 FirebaseMessaging.getInstance().subscribeToTopic(room.getName())
@@ -115,8 +115,8 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
             })
     }
 
-    private fun notifyRoom(message: String) {
-        val map = mapOf("body" to message, "title" to "Správa z MOBV!")
+    private fun notifyRoom(message: String, name: String) {
+        val map = mapOf("body" to message, "title" to name)
 
         messagingRepository.notifyContact(context, getRoom().getName(), map, "type_a", map, {
             Log.i("Notifikacia","Odosielanie notifikácie prešlo")

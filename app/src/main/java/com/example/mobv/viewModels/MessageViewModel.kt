@@ -48,7 +48,7 @@ class MessageViewModel(val context: Context) : ViewModel() {
             messages.value!!.add(Chat(loggedUser.uid, contact.id, message))
 
             readMessages()
-            notifyUser(message)
+            notifyUser(message,loggedUser.username)
             messageContent.setText("")
             onSuccess()
         }, {
@@ -92,8 +92,8 @@ class MessageViewModel(val context: Context) : ViewModel() {
         })
     }
 
-    private fun notifyUser(message: String) {
-        val map = mapOf("body" to message, "title" to "Správa z MOBV!")
+    private fun notifyUser(message: String, username:String) {
+        val map = mapOf("body" to message, "title" to username)
         messagingRepository.notifyContact(context, contactFid, map, "type_a", map, {
             Log.i("Notifikacia","Odosielanie notifikácie prešlo")
         }, {
