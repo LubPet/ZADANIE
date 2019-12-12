@@ -5,6 +5,7 @@
 
     <data>
         <variable name="registerViewModel" type="com.example.mobv.viewModels.RegisterViewModel" />
+        <variable name="registerListener" type="com.example.mobv.RegisterActivity.RegisterListener" />
     </data>
 
     <RelativeLayout
@@ -55,7 +56,7 @@
                 android:id="@+id/btn_register"
                 android:background="@color/colorPrimaryDark"
                 android:layout_marginTop="10dp"
-                android:onClick="@{() -> registerViewModel.register(usernameReg.getText().toString(), passwordReg.getText().toString())}"
+                android:onClick="@{() -> registerListener.register(usernameReg.getText().toString(), passwordReg.getText().toString())}"
                 android:padding="20dp"
                 android:textColor="#fff" />
 

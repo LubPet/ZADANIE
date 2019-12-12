@@ -45,7 +45,10 @@ class RoomMessageFragment : Fragment(), OnFragmentDataListener<GifResource> {
         binding.roomMessageViewModel = roomMessageViewModel
         binding.sendMessageListener = OnSendMessageListener { message ->
             try {
-                roomMessageViewModel.sendMessage(message)
+                roomMessageViewModel.sendMessage(message, {}, {
+                    Toast.makeText(context, "Odosielanie zlyhalo", Toast.LENGTH_SHORT).show()
+                })
+
             } catch (e: IllegalArgumentException) {
                 Toast.makeText(context, "Nie ste pripojený k WiFi danej miestnosti", Toast.LENGTH_LONG).show()
             }
@@ -99,7 +102,9 @@ class RoomMessageFragment : Fragment(), OnFragmentDataListener<GifResource> {
     }
 
     override fun onFragmentData(data: GifResource) {
-        roomMessageViewModel.sendGifMessage(data.id)
+        roomMessageViewModel.sendGifMessage(data.id, {}, {
+            Toast.makeText(context, "Odosielanie zlyhalo", Toast.LENGTH_SHORT).show()
+        })
     }
 
     class OnSendMessageListener(val callback: (String) -> Unit) {

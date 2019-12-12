@@ -5,6 +5,7 @@
 
     <data>
         <variable name="loginViewModel" type="com.example.mobv.viewModels.LoginViewModel" />
+        <variable name="loginListener" type="com.example.mobv.LoginActivity.LoginListener" />
         <variable name="meno" type="String" />
         <variable name="heslo" type="String" />
     </data>
@@ -56,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/login"
-                android:onClick="@{() -> loginViewModel.login(email.getText().toString(), password.getText().toString())}"
+                android:onClick="@{() -> loginListener.login(email.getText().toString(), password.getText().toString())}"
                 android:id="@+id/btn_login"
                 android:background="@color/colorPrimaryDark"
                 android:layout_marginTop="10dp"

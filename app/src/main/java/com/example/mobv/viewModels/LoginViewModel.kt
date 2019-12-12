@@ -11,8 +11,6 @@ import com.example.mobv.model.repository.UserRepository
 import com.example.mobv.session.SessionManager
 import com.example.mobv.utils.Coroutines
 import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.iid.FirebaseInstanceId
-import com.google.firebase.iid.InstanceIdResult
 import kotlinx.coroutines.launch
 
 
@@ -28,7 +26,7 @@ class LoginViewModel(val context: Context) : ViewModel() {
     private val firebaseIdRepository = FirebaseIdRepository(context)
     private val userRepository = UserRepository()
 
-    fun login(username: String, txtPassword: String) {
+    fun login(username: String, txtPassword: String, onSuccess: (LoggedUser) -> Unit, onFailure: () -> Unit) {
         var loginUser: LoggedUser
 
         Coroutines.create().launch {
@@ -37,28 +35,16 @@ class LoginViewModel(val context: Context) : ViewModel() {
                 firebaseIdRepository.getId(loginUser, { id ->
                     loginUser.fid = id
                     loginUser.username = username
-                    onLoginSuccess(loginUser)
+                    onSuccess(loginUser)
                 }, {
-                    onLoginFailure()
+                    onFailure()
                 })
             } catch (e: Exception) {
                 e.printStackTrace()
-                onLoginFailure()
+                onFailure()
             }
         }
     }
 
-    private fun onLoginSuccess(loggedUser: LoggedUser) {
-        SessionManager.get(context).saveSessionData(loggedUser)
 
-
-        val intent = Intent(context, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-
-        (context).startActivity(intent)
-    }
-
-    private fun onLoginFailure() {
-        Toast.makeText(context, "Nesprávne meno alebo heslo.", Toast.LENGTH_SHORT).show()
-    }
 }

@@ -25,7 +25,7 @@ class RegisterViewModel(val context: Context) : ViewModel() {
     private val firebaseIdRepository = FirebaseIdRepository(context)
     private val userRepository = UserRepository()
 
-    fun register(username: String, password: String) {
+    fun register(username: String, password: String, onRegisterSuccess: (LoggedUser) -> Unit, onRegisterFailure: () -> Unit) {
         var user : LoggedUser
         Coroutines.create().launch {
             try {
@@ -51,18 +51,5 @@ class RegisterViewModel(val context: Context) : ViewModel() {
         }
     }
 
-    private fun onRegisterSuccess(loggedUser: LoggedUser) {
-        Toast.makeText(context, "Registrácia bola úspešná.", Toast.LENGTH_LONG).show()
-        val intent = Intent(context, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-        (context).startActivity(intent)
-    }
 
-    private fun onRegisterFailure() {
-        Toast.makeText(
-            context,
-            "Registrácia bola neúspešná.",
-            Toast.LENGTH_LONG
-        ).show()
-    }
 }

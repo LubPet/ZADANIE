@@ -33,20 +33,21 @@ class MessageViewModel(val context: Context) : ViewModel() {
         return messages
     }
 
-    fun sendGifMessage(id: String) {
-        sendMessage(messagingRepository.transformToGifMessage(id))
+    fun sendGifMessage(id: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
+        sendMessage(messagingRepository.transformToGifMessage(id), onSuccess, onFailure)
     }
 
-    fun sendMessage(message : String = "") {
+    fun sendMessage(message : String = "", onSuccess: () -> Unit, onFailure: () -> Unit) {
         loggedUser = SessionManager.get(context).getSessionData()!!
         val contact = getContact()
 
         val messagingRepository = MessagingRepositoryFactory.create()
         messagingRepository.messageContact(context, loggedUser.uid, contact.id, message, {
             messages.value!!.add(Chat(loggedUser.uid, contact.id, message))
+            onSuccess()
         }, {
             it.printStackTrace()
-            Toast.makeText(context, "Odosielanie zlyhalo", Toast.LENGTH_SHORT).show()
+            onFailure()
         })
 
         readMessages()

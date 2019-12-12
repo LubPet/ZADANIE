@@ -17,6 +17,8 @@ import com.example.mobv.model.ChatRoom
 import com.example.mobv.model.WifiRoom
 import com.example.mobv.model.giphy.repository.GiphyRepository
 import com.example.mobv.model.repository.AvailableRoomsRepository
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import java.lang.IllegalArgumentException
 
 
@@ -38,11 +40,11 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
         return messages
     }
 
-    fun sendGifMessage(id: String) {
-        sendMessage(messagingRepository.transformToGifMessage(id))
+    fun sendGifMessage(id: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
+        sendMessage(messagingRepository.transformToGifMessage(id), onSuccess, onFailure)
     }
 
-    fun sendMessage(message: String = "") {
+    fun sendMessage(message: String = "", onSuccess: () -> Unit, onFailure: () -> Unit) {
         val room = getRoom()
 
         if (!isConnected()) {
@@ -52,11 +54,12 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
         loggedUser = SessionManager.get(context).getSessionData()!!
         val messagingRepository = MessagingRepositoryFactory.create()
         messagingRepository.messageRoom(context, loggedUser.uid, room.getName(), message, {
-            messages.value!!.add(Chat(loggedUser.uid, room.getName(), message)) // TODO
+            messages.value!!.add(Chat(loggedUser.uid, room.getName(), message))
+            onSuccess()
 
         }, {
             it.printStackTrace()
-            Toast.makeText(context, "Odosielanie zlyhalo", Toast.LENGTH_SHORT).show()
+            onFailure()
         })
 
         readMessages()

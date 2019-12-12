@@ -3,6 +3,7 @@ package com.example.mobv
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -47,6 +48,11 @@ class MessageActivity : AppCompatActivity(), OnFragmentDataListener<GifResource>
         )
         binding.lifecycleOwner = this  // use Fragment.viewLifecycleOwner for fragments
         binding.messageViewModel = messageViewModel
+        binding.sendMessageListener = OnSendMessageListener {
+            messageViewModel.sendMessage(it, {}, {
+                Toast.makeText(this@MessageActivity, "Odosielanie zlyhalo", Toast.LENGTH_SHORT).show()
+            })
+        }
         messageViewModel.messages = MutableLiveData()
 
         recyclerView = findViewById(R.id.recycler_view)
@@ -113,6 +119,16 @@ class MessageActivity : AppCompatActivity(), OnFragmentDataListener<GifResource>
     }
 
     override fun onFragmentData(data: GifResource) {
-        messageViewModel.sendGifMessage(data.id)
+        messageViewModel.sendGifMessage(data.id, {}, {
+            Toast.makeText(this@MessageActivity, "Odosielanie zlyhalo", Toast.LENGTH_SHORT).show()
+        })
+    }
+
+    class OnSendMessageListener(val callback: (String) -> Unit) {
+
+        fun sendMessage(message: String) {
+            callback(message)
+        }
+
     }
 }
