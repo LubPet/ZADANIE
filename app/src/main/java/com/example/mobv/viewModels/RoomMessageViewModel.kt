@@ -64,7 +64,7 @@ class RoomMessageViewModel(val context: Context) : ViewModel() {
 
             try {
                 val grim = room.getName().replace(":","")
-                FirebaseMessaging.getInstance().subscribeToTopic(grim)
+                FirebaseMessaging.getInstance().subscribeToTopic("/topics/" + grim)
                     .addOnSuccessListener {
                         Toast.makeText(context, "Success: subscribed to - " + room.getName(), Toast.LENGTH_LONG).show()
                     }
