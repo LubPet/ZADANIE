@@ -2,6 +2,7 @@ package com.example.mobv
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -26,14 +27,11 @@ import com.example.mobv.viewModels.MainViewModel
 import com.example.mobv.viewModels.MainViewModelFactory
 import com.example.mobv.viewModels.RoomMessageViewModel
 import com.example.mobv.viewModels.RoomMessageViewModelFactory
-import com.example.mobv.Fragments.RoomsFragment
-import com.example.mobv.Fragments.UsersFragment
-import com.example.mobv.Model.repository.UserRepository
-import com.example.mobv.session.SessionManager
 import com.google.android.material.tabs.TabLayout
-import okhttp3.internal.userAgent
-import java.util.*
 import com.google.firebase.messaging.FirebaseMessaging
+import okhttp3.internal.userAgent
+import java.lang.Exception
+import java.util.*
 import java.util.*
 
 
@@ -84,10 +82,15 @@ class MainActivity : AppCompatActivity() {
 
         FirebaseMessaging.getInstance().isAutoInitEnabled = true
 
-        FirebaseMessaging.getInstance().subscribeToTopic(loggedUser.fid)
-            .addOnSuccessListener {
-                Toast.makeText(applicationContext, "Success", Toast.LENGTH_LONG).show()
-            }
+        try {
+            FirebaseMessaging.getInstance().subscribeToTopic(loggedUser.fid)
+                .addOnSuccessListener {
+                    Toast.makeText(applicationContext, "Success", Toast.LENGTH_LONG).show()
+                }
+        } catch (e: Exception) {
+            Log.wtf("Subscribing fail", e)
+        }
+
 
     }
 

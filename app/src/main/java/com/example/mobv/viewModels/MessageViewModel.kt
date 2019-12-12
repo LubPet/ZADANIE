@@ -10,6 +10,7 @@ import com.example.mobv.model.factory.MessagingRepositoryFactory
 import com.example.mobv.session.SessionManager
 import java.util.*
 import android.app.Activity
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView

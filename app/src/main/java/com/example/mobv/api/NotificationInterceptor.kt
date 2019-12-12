@@ -1,7 +1,6 @@
 package com.example.mobv.api
 
 import android.content.Context
-import com.example.mobv.Model.LoggedUser
 import com.example.mobv.session.SessionManager
 import okhttp3.Interceptor
 import okhttp3.Response

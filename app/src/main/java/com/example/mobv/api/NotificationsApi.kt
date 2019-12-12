@@ -1,8 +1,6 @@
 package com.example.mobv.api
 
 import android.content.Context
-import com.example.mobv.Model.LoggedUser
-import com.example.mobv.Model.Room
 import com.example.mobv.api.requests.*
 import com.example.mobv.api.responses.Contact
 import com.example.mobv.api.responses.ContactMessage

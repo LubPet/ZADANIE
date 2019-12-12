@@ -8,10 +8,6 @@ import androidx.lifecycle.ViewModel
 import com.example.mobv.model.Chat
 import com.example.mobv.model.LoggedUser
 import com.example.mobv.model.factory.MessagingRepositoryFactory
-import androidx.recyclerview.widget.RecyclerView
-import com.example.mobv.Model.Chat
-import com.example.mobv.Model.LoggedUser
-import com.example.mobv.Model.factory.MessagingRepositoryFactory
 import com.example.mobv.session.SessionManager
 import java.util.*
 import android.app.Activity
@@ -25,7 +21,6 @@ import com.example.mobv.model.repository.AvailableRoomsRepository
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import java.lang.IllegalArgumentException
-import com.example.mobv.Model.ChatRoom
 
 
 class RoomMessageViewModel(val context: Context) : ViewModel() {
