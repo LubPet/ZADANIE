@@ -47,11 +47,13 @@ class GifFragment : Fragment() {
         recyclerView!!.setHasFixedSize(true)
         recyclerView!!.layoutManager = LinearLayoutManager(context)
 
+        gifAdapter = GifAdapter(context!!, ArrayList(), GifAdapter.GifListener {
+            handleClick(it)
+        })
+        recyclerView!!.adapter = gifAdapter
+
         gifsViewModel.getGifs().observe(this, Observer { gifs ->
-            gifAdapter = GifAdapter(context!!, gifs, GifAdapter.GifListener {
-                handleClick(it)
-            })
-            recyclerView!!.adapter = gifAdapter
+            gifAdapter.update(gifs)
         })
 
         if (searchString.isNotBlank()) gifsViewModel.searchGifs(searchString)

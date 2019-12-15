@@ -13,7 +13,7 @@ import com.example.mobv.api.responses.Contact
 
 class UserAdapter(
     private val mContext: Context,
-    private val contacts: List<Contact>
+    private var contacts: List<Contact>
 
 ) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
@@ -41,6 +41,11 @@ class UserAdapter(
 
     override fun getItemCount(): Int {
         return contacts.size
+    }
+
+    fun update(users: List<Contact>) {
+        this.contacts = users
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) :

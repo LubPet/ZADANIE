@@ -87,8 +87,9 @@ class MessageAdapter(
         }
     }
 
-    fun setChats(chats: List<Chat>) {
+    fun update(chats: List<Chat>) {
         messages = chats
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

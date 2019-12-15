@@ -13,7 +13,7 @@ import com.example.mobv.RoomMessageActivity
 
 class RoomAdapter(
     private val mContext: Context,
-    private val chatRooms: List<ChatRoom>
+    private var chatRooms: List<ChatRoom>
 
 ) : RecyclerView.Adapter<RoomAdapter.ViewHolder>() {
 
@@ -42,6 +42,11 @@ class RoomAdapter(
 
     override fun getItemCount(): Int {
         return chatRooms.size
+    }
+
+    fun update(rooms: List<ChatRoom>) {
+        this.chatRooms = rooms
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) :

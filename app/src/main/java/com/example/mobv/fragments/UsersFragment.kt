@@ -43,9 +43,11 @@ class UsersFragment : Fragment(), OnFocusListener {
         recyclerView.layoutManager = LinearLayoutManager(context)
         this.recyclerView = recyclerView
 
+        userAdapter = UserAdapter(context!!, ArrayList())
+        recyclerView.adapter = userAdapter
+
         usersViewModel.getUsers().observe(this, Observer { users ->
-            userAdapter = UserAdapter(context!!, users)
-            recyclerView.adapter = userAdapter
+            userAdapter!!.update(users)
         })
 
         usersViewModel.readUsers()

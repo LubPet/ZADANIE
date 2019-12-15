@@ -12,7 +12,7 @@ import com.example.mobv.databinding.GifItemBinding
 
 class GifAdapter(
     private val mContext: Context,
-    private val gifs: List<GifResource>,
+    private var gifs: List<GifResource>,
     private val listener: GifListener
 
 ) : RecyclerView.Adapter<GifAdapter.ViewHolder>() {
@@ -38,6 +38,11 @@ class GifAdapter(
 
     override fun getItemCount(): Int {
         return gifs.size
+    }
+
+    fun update(gifs: List<GifResource>) {
+        this.gifs = gifs
+        notifyDataSetChanged()
     }
 
     class ViewHolder(val binding: GifItemBinding) :

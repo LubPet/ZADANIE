@@ -61,9 +61,11 @@ class RoomMessageFragment : Fragment(), OnFragmentDataListener<GifResource> {
 
         roomMessageViewModel.recyclerView = this.recyclerView
 
+        messageAdapter = MessageAdapter(context!!, ArrayList())
+        recyclerView.adapter = messageAdapter
+
         roomMessageViewModel.getMessages().observe(this, Observer { messages ->
-            messageAdapter = MessageAdapter(context!!, messages)
-            recyclerView.adapter = messageAdapter
+            messageAdapter!!.update(messages)
         })
         roomMessageViewModel.messageContent = view.findViewById(R.id.messageContent)
 

@@ -22,6 +22,7 @@ import androidx.appcompat.widget.AppCompatImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.example.mobv.interfaces.OnFragmentDataListener
+import com.example.mobv.model.Chat
 import com.example.mobv.model.GifResource
 
 
@@ -78,14 +79,13 @@ class MessageActivity : AppCompatActivity(), OnFragmentDataListener<GifResource>
             toggleGifSelection()
         }
 
+        messageAdapter = MessageAdapter(this@MessageActivity, ArrayList())
+        recyclerView.adapter = messageAdapter
+
         messageViewModel.getMessages().observe(this, Observer { messages ->
-            if (messageAdapter != null) {
-                messageAdapter!!.setChats(messages)
-            } else {
-                messageAdapter = MessageAdapter(this@MessageActivity, messages)
-            }
-            recyclerView.adapter = messageAdapter
+                messageAdapter!!.update(messages)
         })
+
         binding.contact = messageViewModel.getContact().name
 
         val messageContent = findViewById<EditText>(R.id.messageContent)

@@ -43,9 +43,11 @@ class RoomsFragment : Fragment(), OnFocusListener {
         recyclerView.layoutManager = LinearLayoutManager(context)
         this.recyclerView = recyclerView
 
+        roomAdapter = RoomAdapter(context!!, ArrayList())
+        recyclerView.adapter = roomAdapter
+
         roomsViewModel.getRooms().observe(this, Observer { rooms ->
-            roomAdapter = RoomAdapter(context!!, rooms)
-            recyclerView.adapter = roomAdapter
+            roomAdapter!!.update(rooms)
         })
 
         roomsViewModel.readRooms()
