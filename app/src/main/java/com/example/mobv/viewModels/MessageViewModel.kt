@@ -73,8 +73,8 @@ class MessageViewModel(val context: Context) : ViewModel() {
                     contactFid = message.contact_fid
                 } else {
                     chat.receiver = loggedUser.uid
-                    chat.sender = message.contact_name
-                    chat.senderName =  message.contact_name
+                    chat.sender = message.uid
+                    chat.senderName =  message.uid_name
                 }
                 chat.time = message.getTime()
                 chat.message = message.message
